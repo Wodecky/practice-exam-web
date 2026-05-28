@@ -1,0 +1,85 @@
+<section class="section section-surface" aria-labelledby="exams-heading">
+  <div class="section-inner">
+    <div class="section-head section-head-row">
+      <div>
+        <span class="eyebrow">Polecane egzaminy</span>
+        <h2 id="exams-heading">Coś dla każdego.</h2>
+        <p class="section-sub">Od matury po certyfikaty IT. Każdą bazę pytań prowadzą ludzie, którzy sami ten egzamin zdali.</p>
+      </div>
+      <!-- Tonal button — no Angular Material equivalent, keep custom -->
+      <a class="m3-btn m3-btn-tonal" href="#">
+        Zobacz wszystkie 240+
+        <mat-icon>arrow_forward</mat-icon>
+      </a>
+    </div>
+
+    <!-- Tabs (custom pill design — not mat-tab-group per design spec) -->
+    <div class="tabs" role="tablist" aria-label="Kategorie egzaminów">
+      @for (tab of tabs; track tab.label; let i = $index) {
+        <button
+          #tabBtn
+          type="button"
+          class="tab"
+          [class.tab-selected]="activeIdx() === i"
+          role="tab"
+          [attr.aria-selected]="activeIdx() === i"
+          [attr.tabindex]="activeIdx() === i ? 0 : -1"
+          [attr.id]="'tab-' + i"
+          [attr.aria-controls]="'tabpanel-' + i"
+          (click)="selectTab(i)"
+          (keydown)="onTabKeydown($event, i)"
+        >
+          {{ tab.label }}
+        </button>
+      }
+      <span
+        class="tab-indicator"
+        [style.left]="indicatorLeft()"
+        [style.width]="indicatorWidth()"
+        aria-hidden="true"
+      ></span>
+    </div>
+
+    <div
+      class="exam-grid"
+      role="tabpanel"
+      [attr.id]="'tabpanel-' + activeIdx()"
+      [attr.aria-labelledby]="'tab-' + activeIdx()"
+    >
+      @for (exam of activeExams(); track trackExam($index, exam); let i = $index) {
+        <article
+          class="exam-card"
+          [class]="'exam-card exam-card-' + exam.color"
+          [style.animation-delay.ms]="i * 50"
+        >
+          <div class="exam-card-top">
+            <div class="exam-icon" [class]="'exam-icon exam-icon-' + exam.color" aria-hidden="true">
+              <mat-icon>{{ exam.icon }}</mat-icon>
+            </div>
+            @if (exam.popular) {
+              <span class="exam-pop">
+                <mat-icon>star</mat-icon>
+                Popularne
+              </span>
+            }
+          </div>
+          <h3>{{ exam.name }}</h3>
+          <div class="exam-meta">
+            <span>
+              <mat-icon>quiz</mat-icon>
+              {{ exam.qs }}
+            </span>
+            <span>
+              <mat-icon>insights</mat-icon>
+              {{ exam.meta }}
+            </span>
+          </div>
+          <button mat-button class="exam-cta">
+            Zacznij ćwiczyć
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </article>
+      }
+    </div>
+  </div>
+</section>

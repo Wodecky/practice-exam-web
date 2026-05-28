@@ -1,0 +1,101 @@
+:host {
+  display: block;
+}
+
+.app-bar-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in oklab, var(--md-sys-color-background) 80%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  transition: background 200ms ease, border-color 200ms ease;
+  border-bottom: 1px solid transparent;
+}
+
+.app-bar-scrolled {
+  background: color-mix(in oklab, var(--md-sys-color-surface-container) 88%, transparent);
+  border-bottom-color: var(--md-sys-color-outline-variant);
+}
+
+.app-bar-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  height: 72px;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-name {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.brand-mark { display: inline-flex; }
+
+.app-bar-nav {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+
+  a {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface-variant);
+    transition: background 150ms ease, color 150ms ease;
+
+    &:hover {
+      background: color-mix(in oklab, var(--md-sys-color-on-surface-variant) 8%, transparent);
+      color: var(--md-sys-color-on-surface);
+    }
+  }
+}
+
+.app-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  color: var(--md-sys-color-on-surface-variant);
+  border-radius: 4px;
+}
+
+@media (max-width: 980px) {
+  .app-bar-nav { display: none; }
+
+  .app-bar-inner {
+    grid-template-columns: 1fr auto;
+    padding: 0 20px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 580px) {
+  .sign-in-btn { display: none; }
+}

@@ -1,0 +1,40 @@
+<div #sentinel class="app-bar-sentinel" aria-hidden="true"></div>
+<header class="app-bar" [class.app-bar-scrolled]="scrolled()">
+  <div class="app-bar-inner">
+    <a class="brand" href="#top" aria-label="Pracsis – strona główna">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <rect x="2" y="2" width="28" height="28" rx="9" fill="var(--md-sys-color-primary)"/>
+          <path d="M10 21 V11 H15 a4 4 0 0 1 0 8 H10"
+                fill="none" stroke="var(--md-sys-color-on-primary)"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="22" cy="20" r="2" fill="var(--md-sys-color-tertiary-container)"/>
+        </svg>
+      </span>
+      <span class="brand-name">Pracsis</span>
+    </a>
+
+    <nav class="app-bar-nav" aria-label="Główna nawigacja">
+      <a href="#exams">Egzaminy</a>
+      <a href="#how">Jak to działa</a>
+      <a href="#try">Wypróbuj pytanie</a>
+      <a href="#changelog">Dla developerów</a>
+    </nav>
+
+    <div class="app-bar-actions">
+      <button
+        mat-icon-button
+        class="theme-toggle"
+        [attr.aria-label]="isDark() ? 'Przełącz na tryb jasny' : 'Przełącz na tryb ciemny'"
+        (click)="toggleTheme()"
+      >
+        <mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+      <button mat-button class="sign-in-btn">Zaloguj się</button>
+      <button mat-flat-button>
+        <mat-icon>explore</mat-icon>
+        Przeglądaj egzaminy
+      </button>
+    </div>
+  </div>
+</header>

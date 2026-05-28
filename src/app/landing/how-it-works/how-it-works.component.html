@@ -1,0 +1,31 @@
+<section class="section" aria-labelledby="how-heading">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Jak to działa</span>
+      <h2 id="how-heading">Od „chyba pora się wziąć za naukę" do „dawaj ten egzamin".</h2>
+      <p class="section-sub">Bez filmów. Bez 9-godzinnych wykładów. Tylko powtórki na pytaniach, które naprawdę robią różnicę.</p>
+    </div>
+
+    <div class="steps-grid">
+      @for (step of steps; track step.n) {
+        <article
+          class="step-card"
+          [class]="'step-card step-card-' + step.color"
+          [style.animation-delay.ms]="step.delayMs"
+        >
+          <div class="step-card-top">
+            <span class="step-num" aria-hidden="true">{{ step.n }}</span>
+            <div class="step-icon" aria-hidden="true">
+              <mat-icon>{{ step.icon }}</mat-icon>
+            </div>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.body }}</p>
+          <div class="step-card-foot" aria-hidden="true">
+            <mat-icon>arrow_forward</mat-icon>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
