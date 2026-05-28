@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationConfig, inject, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -13,13 +13,8 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })
     ),
     provideAnimationsAsync(),
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: () => {
-        const registry = inject(MatIconRegistry);
-        return () => registry.setDefaultFontSetClass('material-symbols-rounded');
-      },
-    },
+    provideAppInitializer(() => {
+      inject(MatIconRegistry).setDefaultFontSetClass('material-symbols-rounded');
+    }),
   ],
 };

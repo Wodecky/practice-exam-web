@@ -17,18 +17,27 @@
     <div class="tabs" role="tablist" aria-label="Kategorie egzaminów">
       @for (tab of tabs; track tab.label; let i = $index) {
         <button
+          #tabBtn
+          type="button"
           class="tab"
           [class.tab-selected]="activeIdx() === i"
           role="tab"
           [attr.aria-selected]="activeIdx() === i"
+          [attr.tabindex]="activeIdx() === i ? 0 : -1"
           [attr.id]="'tab-' + i"
           [attr.aria-controls]="'tabpanel-' + i"
           (click)="selectTab(i)"
+          (keydown)="onTabKeydown($event, i)"
         >
           {{ tab.label }}
         </button>
       }
-      <span class="tab-indicator" [style.left]="indicatorLeft()" aria-hidden="true"></span>
+      <span
+        class="tab-indicator"
+        [style.left]="indicatorLeft()"
+        [style.width]="indicatorWidth()"
+        aria-hidden="true"
+      ></span>
     </div>
 
     <div

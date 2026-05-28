@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-newsletter',
@@ -10,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewsletterComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
   readonly emailControl = new FormControl<string>('', {
     validators: [Validators.required, Validators.email],
     nonNullable: true,
@@ -18,9 +22,8 @@ export class NewsletterComponent {
   readonly status = signal<'idle' | 'ok' | 'err'>('idle');
   readonly focused = signal(false);
 
-  get hasValue(): boolean {
-    return this.emailControl.value.length > 0;
-  }
+  private readonly value = toSignal(this.emailControl.valueChanges, { initialValue: '' });
+  readonly hasValue = computed(() => this.value().length > 0);
 
   onSubmit(): void {
     if (!this.emailControl.valid) {
@@ -30,7 +33,9 @@ export class NewsletterComponent {
     }
     this.status.set('ok');
     this.emailControl.reset('');
-    setTimeout(() => this.status.set('idle'), 4000);
+    timer(4000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.status.set('idle'));
   }
 
   onFocus(): void {

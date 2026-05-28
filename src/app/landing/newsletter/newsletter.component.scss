@@ -124,7 +124,7 @@
 }
 
 .m3-textfield-error input {
-  border-color: #FFD1D1 !important;
+  border-color: #FFD1D1;
 }
 
 .m3-textfield-icon {
@@ -139,14 +139,14 @@
   height: 20px;
 }
 
-// Inverted submit button
+// Inverted submit button — relies on component scope (view encapsulation) for specificity over .m3-btn-filled
 .newsletter-submit {
   flex-shrink: 0;
-  background: var(--md-sys-color-on-primary) !important;
-  color: var(--md-sys-color-primary) !important;
+  background: var(--md-sys-color-on-primary);
+  color: var(--md-sys-color-primary);
 
   &:hover:not(:disabled) {
-    background: color-mix(in oklab, var(--md-sys-color-on-primary) 92%, var(--md-sys-color-primary)) !important;
+    background: color-mix(in oklab, var(--md-sys-color-on-primary) 92%, var(--md-sys-color-primary));
   }
 
   &:disabled { opacity: 0.7; cursor: not-allowed; }

@@ -17,7 +17,7 @@
         <form class="newsletter-form" (ngSubmit)="onSubmit()" novalidate aria-label="Formularz subskrypcji newslettera">
           <div
             class="m3-textfield"
-            [class.m3-textfield-focused]="focused() || hasValue"
+            [class.m3-textfield-focused]="focused() || hasValue()"
             [class.m3-textfield-error]="status() === 'err'"
           >
             <label for="newsletter-email">Adres e-mail</label>

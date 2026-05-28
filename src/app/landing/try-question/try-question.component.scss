@@ -120,7 +120,7 @@
   border: 1px solid var(--md-sys-color-outline-variant);
 }
 
-.qc-diff-easy   { color: #2e7d32; border-color: color-mix(in oklab, #2e7d32 40%, var(--md-sys-color-outline-variant)); }
+.qc-diff-easy   { color: var(--md-sys-color-success); border-color: color-mix(in oklab, var(--md-sys-color-success) 40%, var(--md-sys-color-outline-variant)); }
 .qc-diff-medium { color: var(--md-sys-color-tertiary); border-color: color-mix(in oklab, var(--md-sys-color-tertiary) 40%, var(--md-sys-color-outline-variant)); }
 .qc-diff-hard   { color: var(--md-sys-color-error); border-color: color-mix(in oklab, var(--md-sys-color-error) 40%, var(--md-sys-color-outline-variant)); }
 
@@ -216,16 +216,16 @@
 }
 
 .qc-option-correct {
-  border-color: #2e7d32 !important;
-  background: color-mix(in oklab, #2e7d32 10%, var(--md-sys-color-surface)) !important;
+  border-color: var(--md-sys-color-success);
+  background: color-mix(in oklab, var(--md-sys-color-success) 10%, var(--md-sys-color-surface));
 
-  .qc-option-letter { background: #2e7d32; color: white; }
-  .qc-option-icon { color: #2e7d32; }
+  .qc-option-letter { background: var(--md-sys-color-success); color: var(--md-sys-color-on-success); }
+  .qc-option-icon { color: var(--md-sys-color-success); }
 }
 
 .qc-option-wrong {
-  border-color: var(--md-sys-color-error) !important;
-  background: color-mix(in oklab, var(--md-sys-color-error) 10%, var(--md-sys-color-surface)) !important;
+  border-color: var(--md-sys-color-error);
+  background: color-mix(in oklab, var(--md-sys-color-error) 10%, var(--md-sys-color-surface));
 
   .qc-option-letter { background: var(--md-sys-color-error); color: var(--md-sys-color-on-error); }
   .qc-option-icon { color: var(--md-sys-color-error); }
@@ -252,17 +252,17 @@
 .qc-feedback p { font-size: 14px; line-height: 1.55; }
 
 .qc-feedback-correct {
-  background: color-mix(in oklab, #2e7d32 12%, var(--md-sys-color-surface));
-  border: 1px solid color-mix(in oklab, #2e7d32 40%, transparent);
+  background: color-mix(in oklab, var(--md-sys-color-success) 12%, var(--md-sys-color-surface));
+  border: 1px solid color-mix(in oklab, var(--md-sys-color-success) 40%, transparent);
 
-  .material-symbols-rounded { color: #2e7d32; }
+  mat-icon { color: var(--md-sys-color-success); }
 }
 
 .qc-feedback-wrong {
   background: var(--md-sys-color-error-container);
   border: 1px solid color-mix(in oklab, var(--md-sys-color-error) 40%, transparent);
 
-  .material-symbols-rounded { color: var(--md-sys-color-error); }
+  mat-icon { color: var(--md-sys-color-error); }
   p, strong { color: var(--md-sys-color-on-error-container); }
 }
 

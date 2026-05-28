@@ -2,6 +2,15 @@
   display: block;
 }
 
+.app-bar-sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
 .app-bar {
   position: sticky;
   top: 0;

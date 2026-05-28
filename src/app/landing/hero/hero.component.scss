@@ -177,9 +177,11 @@
   color: var(--md-sys-color-on-surface-variant);
   font-variant-numeric: tabular-nums;
 
-  .material-symbols-rounded {
+  mat-icon {
     font-size: 16px;
-    color: #2e7d32;
+    width: 16px;
+    height: 16px;
+    color: var(--md-sys-color-success);
   }
 }
 
@@ -237,7 +239,7 @@
   align-items: center;
   justify-content: center;
 
-  .material-symbols-rounded { font-size: 14px; font-weight: 700; }
+  mat-icon { font-size: 14px; width: 14px; height: 14px; font-weight: 700; }
 }
 
 .art-card-stat {
@@ -295,7 +297,7 @@
   background: var(--md-sys-color-tertiary-container);
   color: var(--md-sys-color-on-tertiary-container);
 
-  .material-symbols-rounded { font-size: 24px; }
+  mat-icon { font-size: 24px; width: 24px; height: 24px; }
 }
 
 .art-badge-ring {

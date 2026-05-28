@@ -22,27 +22,23 @@
           </li>
         </ul>
 
-        <div class="try-switcher" role="group" aria-label="Wybierz kategorię pytania">
-          @for (q of questions; track q.track; let i = $index) {
+        <div class="try-switcher">
+          @for (label of switcherLabels(); track label; let i = $index) {
             <button
+              type="button"
               class="try-switch"
               [class.try-switch-on]="qIdx() === i"
               [attr.aria-pressed]="qIdx() === i"
               (click)="reset(i)"
             >
-              {{ q.track.split('·')[0].trim() }}
+              {{ label }}
             </button>
           }
         </div>
       </div>
 
       <!-- Right: question card -->
-      <div
-        class="question-card"
-        role="region"
-        aria-label="Interaktywne pytanie próbne"
-        aria-live="polite"
-      >
+      <div class="question-card" role="region" aria-label="Interaktywne pytanie próbne">
         <div class="qc-head">
           <div class="qc-meta">
             <span class="qc-track">{{ q().track }}</span>
@@ -56,17 +52,24 @@
           </span>
         </div>
 
-        <p class="qc-prompt">{{ q().prompt }}</p>
+        <p class="qc-prompt" id="qc-prompt">{{ q().prompt }}</p>
 
-        <div class="qc-options" role="list">
-          @for (opt of q().options; track opt.id) {
+        <div
+          class="qc-options"
+          role="radiogroup"
+          aria-labelledby="qc-prompt"
+        >
+          @for (opt of q().options; track opt.id; let i = $index) {
             <button
+              type="button"
               class="qc-option"
-              [class]="getOptionClass(opt.id)"
+              [class]="optionClasses(opt.id)"
+              role="radio"
+              [attr.aria-checked]="picked() === opt.id"
+              [attr.tabindex]="optionTabIndex(opt.id, i)"
               [disabled]="submitted()"
               (click)="pick(opt.id)"
-              role="listitem"
-              [attr.aria-label]="'Odpowiedź ' + opt.id.toUpperCase() + ': ' + opt.text"
+              (keydown)="onOptionKeydown($event, i)"
             >
               <span class="qc-option-letter" aria-hidden="true">{{ opt.id.toUpperCase() }}</span>
               <span class="qc-option-text">{{ opt.text }}</span>
@@ -84,7 +87,8 @@
           <div
             class="qc-feedback"
             [class]="correct() ? 'qc-feedback qc-feedback-correct' : 'qc-feedback qc-feedback-wrong'"
-            role="alert"
+            role="status"
+            aria-live="polite"
           >
             <div class="qc-feedback-head">
               <mat-icon aria-hidden="true">{{ correct() ? 'check_circle' : 'lightbulb' }}</mat-icon>
@@ -92,7 +96,7 @@
                 @if (correct()) {
                   Brawo — to dobra odpowiedź.
                 } @else {
-                  Nie tym razem. Prawidłowa odpowiedź to {{ getWrongAnswerLetter() }}.
+                  Nie tym razem. Prawidłowa odpowiedź to {{ correctLetter() }}.
                 }
               </strong>
             </div>
@@ -105,7 +109,7 @@
             <button mat-button (click)="cancelPick()" [disabled]="!picked()">
               Cofnij wybór
             </button>
-            <button mat-flat-button color="primary" (click)="submit()" [disabled]="!picked()">
+            <button mat-flat-button (click)="submit()" [disabled]="!picked()">
               Sprawdź odpowiedź
             </button>
           } @else {
@@ -113,7 +117,7 @@
               <mat-icon>refresh</mat-icon>
               Spróbuj ponownie
             </button>
-            <button mat-flat-button color="primary" (click)="next()">
+            <button mat-flat-button (click)="next()">
               Następne pytanie
               <mat-icon>arrow_forward</mat-icon>
             </button>
