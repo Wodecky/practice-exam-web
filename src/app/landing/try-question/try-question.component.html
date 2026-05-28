@@ -1,0 +1,125 @@
+<section class="section section-try" aria-labelledby="try-heading">
+  <div class="section-inner">
+    <div class="try-grid">
+      <!-- Left: copy -->
+      <div class="try-copy">
+        <span class="eyebrow">Wypróbuj · Bez rejestracji</span>
+        <h2 id="try-heading">Spójrz, jak to działa. Bez logowania.</h2>
+        <p>Tak właśnie wyglądają pytania w Pracsis — czytelne, z natychmiastową informacją zwrotną i wyjaśnieniem krok po kroku.</p>
+
+        <ul class="try-list" aria-label="Funkcje platformy">
+          <li>
+            <mat-icon aria-hidden="true">quiz</mat-icon>
+            Pytania jak na prawdziwym egzaminie
+          </li>
+          <li>
+            <mat-icon aria-hidden="true">lightbulb</mat-icon>
+            Wyjaśnienie krok po kroku przy każdej pomyłce
+          </li>
+          <li>
+            <mat-icon aria-hidden="true">trending_up</mat-icon>
+            Po 5 pytaniach trudność dopasuje się do Ciebie
+          </li>
+        </ul>
+
+        <div class="try-switcher" role="group" aria-label="Wybierz kategorię pytania">
+          @for (q of questions; track q.track; let i = $index) {
+            <button
+              class="try-switch"
+              [class.try-switch-on]="qIdx() === i"
+              [attr.aria-pressed]="qIdx() === i"
+              (click)="reset(i)"
+            >
+              {{ q.track.split('·')[0].trim() }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Right: question card -->
+      <div
+        class="question-card"
+        role="region"
+        aria-label="Interaktywne pytanie próbne"
+        aria-live="polite"
+      >
+        <div class="qc-head">
+          <div class="qc-meta">
+            <span class="qc-track">{{ q().track }}</span>
+            <span class="qc-diff" [class]="'qc-diff qc-diff-' + diffKey()">
+              {{ q().difficulty }}
+            </span>
+          </div>
+          <span class="qc-counter">
+            <mat-icon aria-hidden="true">quiz</mat-icon>
+            Pytanie {{ qIdx() + 1 }} z {{ questions.length }}
+          </span>
+        </div>
+
+        <p class="qc-prompt">{{ q().prompt }}</p>
+
+        <div class="qc-options" role="list">
+          @for (opt of q().options; track opt.id) {
+            <button
+              class="qc-option"
+              [class]="getOptionClass(opt.id)"
+              [disabled]="submitted()"
+              (click)="pick(opt.id)"
+              role="listitem"
+              [attr.aria-label]="'Odpowiedź ' + opt.id.toUpperCase() + ': ' + opt.text"
+            >
+              <span class="qc-option-letter" aria-hidden="true">{{ opt.id.toUpperCase() }}</span>
+              <span class="qc-option-text">{{ opt.text }}</span>
+              @if (submitted() && opt.id === q().answer) {
+                <mat-icon class="qc-option-icon" aria-hidden="true">check_circle</mat-icon>
+              }
+              @if (submitted() && picked() === opt.id && opt.id !== q().answer) {
+                <mat-icon class="qc-option-icon" aria-hidden="true">cancel</mat-icon>
+              }
+            </button>
+          }
+        </div>
+
+        @if (submitted()) {
+          <div
+            class="qc-feedback"
+            [class]="correct() ? 'qc-feedback qc-feedback-correct' : 'qc-feedback qc-feedback-wrong'"
+            role="alert"
+          >
+            <div class="qc-feedback-head">
+              <mat-icon aria-hidden="true">{{ correct() ? 'check_circle' : 'lightbulb' }}</mat-icon>
+              <strong>
+                @if (correct()) {
+                  Brawo — to dobra odpowiedź.
+                } @else {
+                  Nie tym razem. Prawidłowa odpowiedź to {{ getWrongAnswerLetter() }}.
+                }
+              </strong>
+            </div>
+            <p>{{ q().explanation }}</p>
+          </div>
+        }
+
+        <div class="qc-actions">
+          @if (!submitted()) {
+            <button mat-button (click)="cancelPick()" [disabled]="!picked()">
+              Cofnij wybór
+            </button>
+            <button mat-flat-button color="primary" (click)="submit()" [disabled]="!picked()">
+              Sprawdź odpowiedź
+            </button>
+          } @else {
+            <button mat-button (click)="retry()">
+              <mat-icon>refresh</mat-icon>
+              Spróbuj ponownie
+            </button>
+            <button mat-flat-button color="primary" (click)="next()">
+              Następne pytanie
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

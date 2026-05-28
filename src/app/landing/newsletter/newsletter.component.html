@@ -1,0 +1,64 @@
+<section class="newsletter-band" aria-labelledby="newsletter-heading">
+  <div class="section-inner">
+    <div class="newsletter-grid">
+      <!-- Left: copy -->
+      <div class="newsletter-copy">
+        <span class="eyebrow eyebrow-on-primary">Cotygodniowy przegląd</span>
+        <h2 class="newsletter-title" id="newsletter-heading">
+          Jedno pytanie w tygodniu.<br>Z tych, na których łapie się większość.
+        </h2>
+        <p class="newsletter-sub">
+          Wybieramy najtrudniejsze pytanie tygodnia z naszej bazy i dorzucamy minutowe omówienie.
+        </p>
+      </div>
+
+      <!-- Right: form (custom inverted field — not mat-form-field per design spec) -->
+      <div class="newsletter-form-wrap">
+        <form class="newsletter-form" (ngSubmit)="onSubmit()" novalidate aria-label="Formularz subskrypcji newslettera">
+          <div
+            class="m3-textfield"
+            [class.m3-textfield-focused]="focused() || hasValue"
+            [class.m3-textfield-error]="status() === 'err'"
+          >
+            <label for="newsletter-email">Adres e-mail</label>
+            <input
+              id="newsletter-email"
+              type="email"
+              autocomplete="email"
+              [formControl]="emailControl"
+              (focus)="onFocus()"
+              (blur)="onBlur()"
+              [attr.aria-invalid]="status() === 'err'"
+              aria-describedby="newsletter-helper"
+            >
+            <mat-icon class="m3-textfield-icon" aria-hidden="true">mail</mat-icon>
+          </div>
+
+          <button
+            type="submit"
+            class="m3-btn m3-btn-filled m3-btn-large newsletter-submit"
+            [disabled]="status() === 'ok'"
+            [attr.aria-label]="status() === 'ok' ? 'Zapisano' : 'Zapisz się do newslettera'"
+          >
+            @if (status() === 'ok') {
+              Zapisano
+              <mat-icon>check</mat-icon>
+            } @else {
+              Zapisz się
+            }
+          </button>
+        </form>
+
+        <p class="newsletter-helper" id="newsletter-helper" role="status" aria-live="polite">
+          @if (status() === 'ok') {
+            Gotowe! Pierwsze pytanie dostaniesz w niedzielę.
+          } @else if (status() === 'err') {
+            Podaj prawidłowy adres e-mail.
+          } @else {
+            Bezpłatnie, bez spamu, w każdej chwili możesz się wypisać.
+          }
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
