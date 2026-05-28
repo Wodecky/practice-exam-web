@@ -5,7 +5,7 @@
       <div class="newsletter-copy">
         <span class="eyebrow eyebrow-on-primary">Cotygodniowy przegląd</span>
         <h2 class="newsletter-title" id="newsletter-heading">
-          Jedno pytanie w tygodniu.<br>Z tych, na których łapie się większość.
+          Jedno pytanie w tygodniu.<br />Z tych, na których łapie się większość.
         </h2>
         <p class="newsletter-sub">
           Wybieramy najtrudniejsze pytanie tygodnia z naszej bazy i dorzucamy minutowe omówienie.
@@ -14,7 +14,12 @@
 
       <!-- Right: form (custom inverted field — not mat-form-field per design spec) -->
       <div class="newsletter-form-wrap">
-        <form class="newsletter-form" (ngSubmit)="onSubmit()" novalidate aria-label="Formularz subskrypcji newslettera">
+        <form
+          class="newsletter-form"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          aria-label="Formularz subskrypcji newslettera"
+        >
           <div
             class="m3-textfield"
             [class.m3-textfield-focused]="focused() || hasValue()"
@@ -30,7 +35,7 @@
               (blur)="onBlur()"
               [attr.aria-invalid]="status() === 'err'"
               aria-describedby="newsletter-helper"
-            >
+            />
             <mat-icon class="m3-textfield-icon" aria-hidden="true">mail</mat-icon>
           </div>
 

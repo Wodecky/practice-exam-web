@@ -5,7 +5,10 @@
       <div class="try-copy">
         <span class="eyebrow">Wypróbuj · Bez rejestracji</span>
         <h2 id="try-heading">Spójrz, jak to działa. Bez logowania.</h2>
-        <p>Tak właśnie wyglądają pytania w Pracsis — czytelne, z natychmiastową informacją zwrotną i wyjaśnieniem krok po kroku.</p>
+        <p>
+          Tak właśnie wyglądają pytania w Pracsis — czytelne, z natychmiastową informacją zwrotną i
+          wyjaśnieniem krok po kroku.
+        </p>
 
         <ul class="try-list" aria-label="Funkcje platformy">
           <li>
@@ -54,11 +57,7 @@
 
         <p class="qc-prompt" id="qc-prompt">{{ q().prompt }}</p>
 
-        <div
-          class="qc-options"
-          role="radiogroup"
-          aria-labelledby="qc-prompt"
-        >
+        <div class="qc-options" role="radiogroup" aria-labelledby="qc-prompt">
           @for (opt of q().options; track opt.id; let i = $index) {
             <button
               #optionBtn
@@ -110,9 +109,7 @@
 
         <div class="qc-actions">
           @if (!submitted()) {
-            <button mat-button (click)="cancelPick()" [disabled]="!picked()">
-              Cofnij wybór
-            </button>
+            <button mat-button (click)="cancelPick()" [disabled]="!picked()">Cofnij wybór</button>
             <button mat-flat-button (click)="submit()" [disabled]="!picked()">
               Sprawdź odpowiedź
             </button>

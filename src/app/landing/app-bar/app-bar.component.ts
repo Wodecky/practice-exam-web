@@ -56,10 +56,9 @@ export class AppBarComponent {
     const next = !this.menuOpen();
     this.menuOpen.set(next);
     if (next) {
-      afterNextRender(
-        () => this.firstMobileLink()?.nativeElement.focus(),
-        { injector: this.injector },
-      );
+      afterNextRender(() => this.firstMobileLink()?.nativeElement.focus(), {
+        injector: this.injector,
+      });
     }
   }
 

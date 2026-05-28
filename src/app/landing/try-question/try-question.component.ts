@@ -32,7 +32,7 @@ export class TryQuestionComponent {
   readonly diffKey = computed(() => DIFF_KEY[this.q().difficulty] ?? 'medium');
   readonly correctLetter = computed(() => this.q().answer.toUpperCase());
   readonly switcherLabels = computed(() =>
-    this.questions.map(question => question.track.split('·')[0].trim()),
+    this.questions.map((question) => question.track.split('·')[0].trim()),
   );
 
   readonly optionButtons = viewChildren<ElementRef<HTMLButtonElement>>('optionBtn');

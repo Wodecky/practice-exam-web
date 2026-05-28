@@ -12,7 +12,7 @@ export class ThemeService {
   }
 
   toggle() {
-    this.theme.update(t => (t === 'dark' ? 'light' : 'dark'));
+    this.theme.update((t) => (t === 'dark' ? 'light' : 'dark'));
   }
 
   private readSaved(): 'light' | 'dark' {

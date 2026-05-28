@@ -1,4 +1,6 @@
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .steps-grid {
   display: grid;
@@ -7,7 +9,9 @@
 }
 
 @media (max-width: 880px) {
-  .steps-grid { grid-template-columns: 1fr; }
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .step-card {
@@ -19,8 +23,11 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
-  animation: fadeUp 700ms cubic-bezier(.2,.7,.2,1) both;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease;
+  animation: fadeUp 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
   overflow: hidden;
 
   &:hover {
@@ -32,21 +39,34 @@
   &::before {
     content: '';
     position: absolute;
-    top: -40px; right: -40px;
-    width: 200px; height: 200px;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     opacity: 0;
     transition: opacity 300ms ease;
   }
 
-  &:hover::before { opacity: 0.6; }
+  &:hover::before {
+    opacity: 0.6;
+  }
 
-  > * { position: relative; z-index: 1; }
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-.step-card-primary::before   { background: var(--md-sys-color-primary-container); }
-.step-card-tertiary::before  { background: var(--md-sys-color-tertiary-container); }
-.step-card-secondary::before { background: var(--md-sys-color-secondary-container); }
+.step-card-primary::before {
+  background: var(--md-sys-color-primary-container);
+}
+.step-card-tertiary::before {
+  background: var(--md-sys-color-tertiary-container);
+}
+.step-card-secondary::before {
+  background: var(--md-sys-color-secondary-container);
+}
 
 .step-card-top {
   display: flex;
@@ -64,7 +84,8 @@
 }
 
 .step-icon {
-  width: 56px; height: 56px;
+  width: 56px;
+  height: 56px;
   border-radius: 18px;
   display: inline-flex;
   align-items: center;
@@ -72,7 +93,11 @@
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
 
-  mat-icon { font-size: 28px; width: 28px; height: 28px; }
+  mat-icon {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .step-card-tertiary .step-icon {
@@ -91,7 +116,9 @@
   color: var(--md-sys-color-on-surface);
 }
 
-.step-card p { font-size: 15px; }
+.step-card p {
+  font-size: 15px;
+}
 
 .step-card-foot {
   margin-top: auto;
@@ -99,7 +126,9 @@
   display: flex;
   justify-content: flex-end;
   color: var(--md-sys-color-on-surface-variant);
-  transition: color 200ms ease, transform 200ms ease;
+  transition:
+    color 200ms ease,
+    transform 200ms ease;
 }
 
 .step-card:hover .step-card-foot {
