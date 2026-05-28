@@ -174,8 +174,7 @@ mat-icon,
 
 .section-head-row {
   max-width: 100%;
-  display: flex !important;
-  flex-direction: row !important;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;

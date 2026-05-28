@@ -10,7 +10,7 @@
       @for (step of steps; track step.n) {
         <article
           class="step-card"
-          [class]="'step-card step-card-' + step.color"
+          [class]="'step-card-' + step.color"
           [style.animation-delay.ms]="step.delayMs"
         >
           <div class="step-card-top">
