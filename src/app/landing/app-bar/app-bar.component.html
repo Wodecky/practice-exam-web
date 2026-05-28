@@ -38,8 +38,10 @@
       <button
         mat-icon-button
         class="menu-btn"
+        #menuToggle
         [attr.aria-label]="menuOpen() ? 'Zamknij menu' : 'Otwórz menu'"
         [attr.aria-expanded]="menuOpen()"
+        aria-controls="app-bar-mobile-nav"
         (click)="toggleMenu()"
       >
         <mat-icon>{{ menuOpen() ? 'close' : 'menu' }}</mat-icon>
@@ -48,12 +50,13 @@
   </div>
 
   <nav
+    id="app-bar-mobile-nav"
     class="app-bar-mobile"
     [class.open]="menuOpen()"
     aria-label="Nawigacja mobilna"
-    (click)="menuOpen.set(false)"
+    (click)="closeMenu()"
   >
-    <a href="#exams">Egzaminy</a>
+    <a #firstMobileLink href="#exams">Egzaminy</a>
     <a href="#how">Jak to działa</a>
     <a href="#try">Wypróbuj pytanie</a>
     <a href="#changelog">Dla developerów</a>

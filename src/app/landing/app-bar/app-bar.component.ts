@@ -3,6 +3,7 @@ import {
   Component,
   DestroyRef,
   ElementRef,
+  Injector,
   afterNextRender,
   computed,
   inject,
@@ -20,12 +21,18 @@ import { ThemeService } from '../../core/theme.service';
   templateUrl: './app-bar.component.html',
   styleUrl: './app-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown.escape)': 'onEscape()',
+  },
 })
 export class AppBarComponent {
   private readonly themeService = inject(ThemeService);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly injector = inject(Injector);
 
   readonly sentinel = viewChild.required<ElementRef<HTMLElement>>('sentinel');
+  readonly menuToggle = viewChild<ElementRef<HTMLButtonElement>>('menuToggle');
+  readonly firstMobileLink = viewChild<ElementRef<HTMLAnchorElement>>('firstMobileLink');
   readonly scrolled = signal(false);
   readonly menuOpen = signal(false);
   readonly isDark = computed(() => this.themeService.theme() === 'dark');
@@ -46,6 +53,24 @@ export class AppBarComponent {
   }
 
   toggleMenu() {
-    this.menuOpen.update(v => !v);
+    const next = !this.menuOpen();
+    this.menuOpen.set(next);
+    if (next) {
+      afterNextRender(
+        () => this.firstMobileLink()?.nativeElement.focus(),
+        { injector: this.injector },
+      );
+    }
+  }
+
+  closeMenu() {
+    this.menuOpen.set(false);
+  }
+
+  onEscape() {
+    if (this.menuOpen()) {
+      this.menuOpen.set(false);
+      this.menuToggle()?.nativeElement.focus();
+    }
   }
 }

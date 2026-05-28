@@ -107,9 +107,6 @@
   gap: 2px;
   z-index: 49;
 
-  /* Ensure open class only activates at narrow breakpoints */
-  &.open { display: none; }
-
   a {
     padding: 12px 14px;
     border-radius: 6px;
