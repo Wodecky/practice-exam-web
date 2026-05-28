@@ -1,0 +1,133 @@
+<section class="section">
+  <div class="section-inner try-grid">
+
+    <!-- Left: copy -->
+    <div class="try-copy">
+      <span class="eyebrow">Wypróbuj · Bez rejestracji</span>
+      <h2>Spójrz, jak to działa. Bez logowania.</h2>
+      <p>Tak właśnie wyglądają pytania w Pracsis — czytelne, z natychmiastową informacją zwrotną i wyjaśnieniem krok po kroku.</p>
+
+      <ul class="try-list" aria-label="Cechy platformy">
+        <li>
+          <span class="try-list-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">quiz</span>
+          </span>
+          Pytania jak na prawdziwym egzaminie
+        </li>
+        <li>
+          <span class="try-list-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">lightbulb</span>
+          </span>
+          Wyjaśnienie krok po kroku przy każdej pomyłce
+        </li>
+        <li>
+          <span class="try-list-icon" aria-hidden="true">
+            <span class="material-symbols-rounded">trending_up</span>
+          </span>
+          Po 5 pytaniach trudność dopasuje się do Ciebie
+        </li>
+      </ul>
+
+      <div class="try-switcher" role="group" aria-label="Wybierz pytanie">
+        @for (label of switcherLabels(); track label; let i = $index) {
+          <button
+            class="try-switch"
+            [class.try-switch-on]="qIdx() === i"
+            [attr.aria-pressed]="qIdx() === i"
+            type="button"
+            (click)="reset(i)">
+            {{ label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Right: question card -->
+    <div class="question-card" role="form" aria-label="Przykładowe pytanie">
+      <!-- Header -->
+      <div class="qc-head">
+        <div class="qc-meta">
+          <span class="qc-track">{{ q().track }}</span>
+          <span class="qc-diff" [class]="'qc-diff-' + diffKey()">{{ q().difficulty }}</span>
+        </div>
+        <div class="qc-counter" aria-live="polite">
+          <span class="material-symbols-rounded" aria-hidden="true">quiz</span>
+          <span>Pytanie {{ qIdx() + 1 }} z {{ questions.length }}</span>
+        </div>
+      </div>
+
+      <!-- Prompt -->
+      <p class="qc-prompt">{{ q().prompt }}</p>
+
+      <!-- Options -->
+      <div class="qc-options" role="radiogroup" [attr.aria-label]="'Opcje odpowiedzi'">
+        @for (opt of q().options; track opt.id) {
+          <button
+            class="qc-option"
+            [class.qc-option-picked]="optionState(opt) === 'picked'"
+            [class.qc-option-correct]="optionState(opt) === 'correct'"
+            [class.qc-option-wrong]="optionState(opt) === 'wrong'"
+            [disabled]="submitted()"
+            [attr.aria-pressed]="picked() === opt.id"
+            type="button"
+            (click)="pick(opt.id)">
+            <span class="qc-option-letter" aria-hidden="true">{{ opt.id.toUpperCase() }}</span>
+            <span class="qc-option-text">{{ opt.text }}</span>
+            @if (optionState(opt) === 'correct') {
+              <span class="material-symbols-rounded qc-option-icon" aria-label="Poprawna odpowiedź">check_circle</span>
+            } @else if (optionState(opt) === 'wrong') {
+              <span class="material-symbols-rounded qc-option-icon" aria-label="Niepoprawna odpowiedź">cancel</span>
+            }
+          </button>
+        }
+      </div>
+
+      <!-- Feedback -->
+      @if (submitted()) {
+        <div
+          class="qc-feedback"
+          [class.qc-feedback-correct]="correct()"
+          [class.qc-feedback-wrong]="!correct()"
+          role="alert">
+          <div class="qc-feedback-head">
+            <span class="material-symbols-rounded" aria-hidden="true">
+              {{ correct() ? 'check_circle' : 'lightbulb' }}
+            </span>
+            <strong>
+              @if (correct()) {
+                Brawo — to dobra odpowiedź.
+              } @else {
+                Nie tym razem. Prawidłowa odpowiedź to {{ q().answer.toUpperCase() }}.
+              }
+            </strong>
+          </div>
+          <p>{{ q().explanation }}</p>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="qc-actions">
+        @if (!submitted()) {
+          <button class="m3-btn m3-btn-text" type="button" [disabled]="!picked()" (click)="clearPick()">
+            <span class="material-symbols-rounded" aria-hidden="true">refresh</span>
+            Cofnij wybór
+          </button>
+          <button class="m3-btn m3-btn-filled" type="button" [disabled]="!picked()" (click)="submit()">
+            Sprawdź odpowiedź
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+          </button>
+        } @else {
+          <button class="m3-btn m3-btn-text" type="button" (click)="reset(qIdx())">
+            <span class="material-symbols-rounded" aria-hidden="true">refresh</span>
+            Spróbuj ponownie
+          </button>
+          <button class="m3-btn m3-btn-filled" type="button" (click)="next()">
+            Następne pytanie
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+          </button>
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

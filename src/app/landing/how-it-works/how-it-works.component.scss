@@ -1,0 +1,122 @@
+.section-head {
+  max-width: 720px;
+  margin-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-sub {
+  font-size: 17px;
+  max-width: 600px;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.step-card {
+  position: relative;
+  background: var(--md-sys-color-surface-container-low);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  animation: fadeUp 700ms cubic-bezier(.2,.7,.2,1) both;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--m3-elev-2);
+    border-color: transparent;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  &:hover::before { opacity: 0.6; }
+
+  &.step-card-primary::before   { background: var(--md-sys-color-primary-container); }
+  &.step-card-tertiary::before  { background: var(--md-sys-color-tertiary-container); }
+  &.step-card-secondary::before { background: var(--md-sys-color-secondary-container); }
+
+  > * { position: relative; z-index: 1; }
+}
+
+.step-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.step-num {
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--md-sys-color-on-surface-variant);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+
+  .material-symbols-rounded { font-size: 28px; }
+}
+
+.step-card-tertiary .step-icon {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.step-card-secondary .step-icon {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface);
+}
+
+p { font-size: 15px; }
+
+.step-card-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  color: var(--md-sys-color-on-surface-variant);
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.step-card:hover .step-card-foot {
+  color: var(--md-sys-color-primary);
+  transform: translateX(4px);
+}
+
+@media (max-width: 880px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}

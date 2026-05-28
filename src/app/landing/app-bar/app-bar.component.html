@@ -1,0 +1,37 @@
+<div class="app-bar-inner">
+  <a class="brand" href="#top" aria-label="Pracsis — strona główna">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <rect x="2" y="2" width="28" height="28" rx="9" fill="var(--md-sys-color-primary)"/>
+        <path d="M10 21 V11 H15 a4 4 0 0 1 0 8 H10"
+              fill="none" stroke="var(--md-sys-color-on-primary)"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="22" cy="20" r="2" fill="var(--md-sys-color-tertiary-container)"/>
+      </svg>
+    </span>
+    <span class="brand-name">Pracsis</span>
+  </a>
+
+  <nav class="app-bar-nav" aria-label="Nawigacja główna">
+    <a href="#exams">Egzaminy</a>
+    <a href="#how">Jak to działa</a>
+    <a href="#try">Wypróbuj pytanie</a>
+    <a href="#changelog">Dla developerów</a>
+  </nav>
+
+  <div class="app-bar-actions">
+    <button
+      class="icon-btn"
+      (click)="toggleTheme()"
+      [attr.aria-label]="themeMode() === 'dark' ? 'Przełącz na tryb jasny' : 'Przełącz na tryb ciemny'">
+      <span class="material-symbols-rounded" aria-hidden="true">
+        {{ themeMode() === 'dark' ? 'light_mode' : 'dark_mode' }}
+      </span>
+    </button>
+    <button class="m3-btn m3-btn-text sign-in-btn" type="button">Zaloguj się</button>
+    <button class="m3-btn m3-btn-filled" type="button">
+      <span class="material-symbols-rounded" aria-hidden="true">explore</span>
+      Przeglądaj egzaminy
+    </button>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="eyebrow">Jak to działa</span>
+      <h2>Od „chyba pora się wziąć za naukę" do „dawaj ten egzamin".</h2>
+      <p class="section-sub">Bez filmów. Bez 9-godzinnych wykładów. Tylko powtórki na pytaniach, które naprawdę robią różnicę.</p>
+    </div>
+
+    <div class="steps-grid">
+      @for (step of steps; track step.num; let i = $index) {
+        <div class="step-card" [class]="'step-card-' + step.variant" [style.animation-delay]="(i * 80) + 'ms'">
+          <div class="step-card-top">
+            <span class="step-num">{{ step.num }}</span>
+            <div class="step-icon">
+              <span class="material-symbols-rounded" aria-hidden="true">{{ step.icon }}</span>
+            </div>
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.body }}</p>
+          <div class="step-card-foot" aria-hidden="true">
+            <span class="material-symbols-rounded">arrow_forward</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

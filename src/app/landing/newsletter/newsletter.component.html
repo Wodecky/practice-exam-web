@@ -1,0 +1,52 @@
+<div class="newsletter-band">
+  <div class="section-inner newsletter-grid">
+    <!-- Left: copy -->
+    <div>
+      <span class="eyebrow eyebrow-on-primary">Cotygodniowy przegląd</span>
+      <h2 class="newsletter-title">Jedno pytanie w tygodniu. Z tych, na których łapie się większość.</h2>
+      <p class="newsletter-sub">Wybieramy najtrudniejsze pytanie tygodnia z naszej bazy i dorzucamy minutowe omówienie.</p>
+    </div>
+
+    <!-- Right: form -->
+    <form class="newsletter-form" (submit)="submit($event)" novalidate aria-label="Formularz zapisu na newsletter">
+      <div
+        class="m3-textfield"
+        [class.m3-textfield-focused]="focused() || hasValue()"
+        [class.m3-textfield-error]="status() === 'err'">
+        <label for="nl-email">Adres e-mail</label>
+        <input
+          id="nl-email"
+          type="email"
+          autocomplete="email"
+          [formControl]="emailControl"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          (input)="onInput()"
+          aria-describedby="nl-helper"
+          [attr.aria-invalid]="status() === 'err' ? 'true' : null">
+        <span class="m3-textfield-icon" aria-hidden="true">
+          <span class="material-symbols-rounded">mail</span>
+        </span>
+      </div>
+
+      <button class="m3-btn m3-btn-filled-inv m3-btn-large" type="submit">
+        @if (status() === 'ok') {
+          <span class="material-symbols-rounded" aria-hidden="true">check</span>
+          Zapisano
+        } @else {
+          Zapisz się
+        }
+      </button>
+
+      <p class="newsletter-helper" id="nl-helper" aria-live="polite">
+        @if (status() === 'err') {
+          Podaj prawidłowy adres e-mail.
+        } @else if (status() === 'ok') {
+          Gotowe! Pierwsze pytanie dostaniesz w niedzielę.
+        } @else {
+          Bezpłatnie, bez spamu, w każdej chwili możesz się wypisać.
+        }
+      </p>
+    </form>
+  </div>
+</div>

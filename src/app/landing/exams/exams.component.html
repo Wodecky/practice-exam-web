@@ -1,0 +1,71 @@
+<section class="section section-surface">
+  <div class="section-inner">
+    <!-- Section head -->
+    <div class="section-head-row">
+      <div>
+        <span class="eyebrow">Polecane egzaminy</span>
+        <h2>Coś dla każdego.</h2>
+        <p class="section-sub">Od matury po certyfikaty IT. Każdą bazę pytań prowadzą ludzie, którzy sami ten egzamin zdali.</p>
+      </div>
+      <button class="m3-btn m3-btn-tonal" type="button">
+        Zobacz wszystkie 240+
+        <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" role="tablist" aria-label="Kategorie egzaminów">
+      <div class="tab-indicator" [style.left]="tabIndicatorLeft()" aria-hidden="true"></div>
+      @for (tab of tabs; track tab.id; let i = $index) {
+        <button
+          class="tab"
+          [class.tab-selected]="selectedTab() === i"
+          role="tab"
+          [attr.aria-selected]="selectedTab() === i"
+          [attr.aria-controls]="'exam-panel-' + tab.id"
+          [id]="'exam-tab-' + tab.id"
+          (click)="selectTab(i)">
+          {{ tab.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Exam grid -->
+    <div
+      class="exam-grid"
+      role="tabpanel"
+      [id]="'exam-panel-' + tabs[selectedTab()].id"
+      [attr.aria-labelledby]="'exam-tab-' + tabs[selectedTab()].id">
+      @for (exam of currentExams(); track exam.name; let i = $index) {
+        <div class="exam-card" [style.animation-delay]="(i * 50) + 'ms'">
+          <div class="exam-card-top">
+            <div class="exam-icon" [class]="'exam-icon-' + exam.iconVariant" aria-hidden="true">
+              <span class="material-symbols-rounded">{{ exam.icon }}</span>
+            </div>
+            @if (exam.popular) {
+              <span class="exam-pop">
+                <span class="material-symbols-rounded" aria-hidden="true">star</span>
+                Popularne
+              </span>
+            }
+          </div>
+          <h3>{{ exam.name }}</h3>
+          <div class="exam-meta">
+            <span>
+              <span class="material-symbols-rounded" aria-hidden="true">quiz</span>
+              {{ exam.count }}
+            </span>
+            <span>
+              <span class="material-symbols-rounded" aria-hidden="true">insights</span>
+              {{ exam.meta }}
+            </span>
+          </div>
+          <button class="m3-btn m3-btn-text exam-cta" type="button">
+            Zacznij ćwiczyć
+            <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>
