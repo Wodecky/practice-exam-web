@@ -46,14 +46,14 @@
       [attr.id]="'tabpanel-' + activeIdx()"
       [attr.aria-labelledby]="'tab-' + activeIdx()"
     >
-      @for (exam of activeExams(); track trackExam($index, exam); let i = $index) {
+      @for (exam of activeExams(); track exam.name; let i = $index) {
         <article
           class="exam-card"
-          [class]="'exam-card exam-card-' + exam.color"
+          [class]="'exam-card-' + exam.color"
           [style.animation-delay.ms]="i * 50"
         >
           <div class="exam-card-top">
-            <div class="exam-icon" [class]="'exam-icon exam-icon-' + exam.color" aria-hidden="true">
+            <div class="exam-icon" [class]="'exam-icon-' + exam.color" aria-hidden="true">
               <mat-icon>{{ exam.icon }}</mat-icon>
             </div>
             @if (exam.popular) {

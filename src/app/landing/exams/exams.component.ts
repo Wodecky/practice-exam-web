@@ -10,7 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Exam, EXAM_TABS, ExamTab } from './exams.data';
+import { EXAM_TABS, ExamTab } from './exams.data';
 
 @Component({
   selector: 'app-exams',
@@ -76,9 +76,5 @@ export class ExamsComponent {
     event.preventDefault();
     this.selectTab(nextIdx);
     this.tabButtons()[nextIdx]?.nativeElement.focus();
-  }
-
-  trackExam(_idx: number, exam: Exam): string {
-    return exam.name;
   }
 }

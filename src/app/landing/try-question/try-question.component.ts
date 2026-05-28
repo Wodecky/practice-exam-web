@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  computed,
+  signal,
+  viewChildren,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -27,6 +34,8 @@ export class TryQuestionComponent {
   readonly switcherLabels = computed(() =>
     this.questions.map(question => question.track.split('·')[0].trim()),
   );
+
+  readonly optionButtons = viewChildren<ElementRef<HTMLButtonElement>>('optionBtn');
 
   reset(idx: number): void {
     this.qIdx.set(idx);
@@ -87,9 +96,7 @@ export class TryQuestionComponent {
     }
 
     event.preventDefault();
-    const target = event.currentTarget as HTMLElement;
-    const sibling = target.parentElement?.querySelectorAll<HTMLButtonElement>('[role="radio"]')[nextIdx];
-    sibling?.focus();
+    this.optionButtons()[nextIdx]?.nativeElement.focus();
     this.pick(options[nextIdx].id);
   }
 
@@ -98,13 +105,5 @@ export class TryQuestionComponent {
     if (picked === id) return 0;
     if (picked === null && idx === 0) return 0;
     return -1;
-  }
-
-  optionClasses(optId: OptionId): Record<string, boolean> {
-    return {
-      'qc-option-picked': !this.submitted() && this.picked() === optId,
-      'qc-option-correct': this.submitted() && optId === this.q().answer,
-      'qc-option-wrong': this.submitted() && this.picked() === optId && optId !== this.q().answer,
-    };
   }
 }

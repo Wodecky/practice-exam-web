@@ -42,7 +42,7 @@
         <div class="qc-head">
           <div class="qc-meta">
             <span class="qc-track">{{ q().track }}</span>
-            <span class="qc-diff" [class]="'qc-diff qc-diff-' + diffKey()">
+            <span class="qc-diff" [class]="'qc-diff-' + diffKey()">
               {{ q().difficulty }}
             </span>
           </div>
@@ -61,9 +61,12 @@
         >
           @for (opt of q().options; track opt.id; let i = $index) {
             <button
+              #optionBtn
               type="button"
               class="qc-option"
-              [class]="optionClasses(opt.id)"
+              [class.qc-option-picked]="!submitted() && picked() === opt.id"
+              [class.qc-option-correct]="submitted() && opt.id === q().answer"
+              [class.qc-option-wrong]="submitted() && picked() === opt.id && opt.id !== q().answer"
               role="radio"
               [attr.aria-checked]="picked() === opt.id"
               [attr.tabindex]="optionTabIndex(opt.id, i)"
@@ -86,7 +89,8 @@
         @if (submitted()) {
           <div
             class="qc-feedback"
-            [class]="correct() ? 'qc-feedback qc-feedback-correct' : 'qc-feedback qc-feedback-wrong'"
+            [class.qc-feedback-correct]="correct()"
+            [class.qc-feedback-wrong]="!correct()"
             role="status"
             aria-live="polite"
           >
