@@ -27,6 +27,7 @@ export class AppBarComponent {
 
   readonly sentinel = viewChild.required<ElementRef<HTMLElement>>('sentinel');
   readonly scrolled = signal(false);
+  readonly menuOpen = signal(false);
   readonly isDark = computed(() => this.themeService.theme() === 'dark');
 
   constructor() {
@@ -42,5 +43,9 @@ export class AppBarComponent {
 
   toggleTheme() {
     this.themeService.toggle();
+  }
+
+  toggleMenu() {
+    this.menuOpen.update(v => !v);
   }
 }

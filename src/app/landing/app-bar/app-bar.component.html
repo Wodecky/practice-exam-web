@@ -31,10 +31,37 @@
         <mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
       <button mat-button class="sign-in-btn">Zaloguj się</button>
-      <button mat-flat-button>
+      <button mat-flat-button class="browse-btn">
         <mat-icon>explore</mat-icon>
         Przeglądaj egzaminy
       </button>
+      <button
+        mat-icon-button
+        class="menu-btn"
+        [attr.aria-label]="menuOpen() ? 'Zamknij menu' : 'Otwórz menu'"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="toggleMenu()"
+      >
+        <mat-icon>{{ menuOpen() ? 'close' : 'menu' }}</mat-icon>
+      </button>
     </div>
   </div>
+
+  <nav
+    class="app-bar-mobile"
+    [class.open]="menuOpen()"
+    aria-label="Nawigacja mobilna"
+    (click)="menuOpen.set(false)"
+  >
+    <a href="#exams">Egzaminy</a>
+    <a href="#how">Jak to działa</a>
+    <a href="#try">Wypróbuj pytanie</a>
+    <a href="#changelog">Dla developerów</a>
+    <div class="app-bar-mobile-divider" aria-hidden="true"></div>
+    <button mat-button class="mobile-action">Zaloguj się</button>
+    <button mat-flat-button class="mobile-action">
+      <mat-icon>explore</mat-icon>
+      Przeglądaj egzaminy
+    </button>
+  </nav>
 </header>

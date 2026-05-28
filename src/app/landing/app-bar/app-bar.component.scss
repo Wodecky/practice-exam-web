@@ -86,6 +86,57 @@
   border-radius: 4px;
 }
 
+/* Hamburger — hidden on desktop, shown on narrow screens */
+.menu-btn {
+  display: none;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Mobile dropdown panel */
+.app-bar-mobile {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 8px 20px 16px;
+  background: var(--md-sys-color-surface-container);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  flex-direction: column;
+  gap: 2px;
+  z-index: 49;
+
+  /* Ensure open class only activates at narrow breakpoints */
+  &.open { display: none; }
+
+  a {
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--md-sys-color-on-surface);
+    transition: background 150ms ease;
+
+    &:hover {
+      background: color-mix(in oklab, var(--md-sys-color-on-surface-variant) 8%, transparent);
+    }
+  }
+
+  .mobile-action {
+    width: 100%;
+    justify-content: center;
+    margin-top: 4px;
+  }
+}
+
+.app-bar-mobile-divider {
+  height: 1px;
+  background: var(--md-sys-color-outline-variant);
+  margin: 8px 0;
+}
+
 @media (max-width: 980px) {
   .app-bar-nav { display: none; }
 
@@ -94,8 +145,13 @@
     padding: 0 20px;
     height: 64px;
   }
+
+  .menu-btn { display: inline-flex; }
+
+  .app-bar-mobile.open { display: flex; }
 }
 
 @media (max-width: 580px) {
-  .sign-in-btn { display: none; }
+  .sign-in-btn,
+  .browse-btn { display: none; }
 }

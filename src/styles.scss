@@ -327,18 +327,23 @@ mat-icon,
 // =====================================================
 
 // Angular Material button shape overrides (sharp corner style)
+// Angular Material 21 uses --mat-button-*-container-shape (not the old --mdc-* names)
 .mat-mdc-unelevated-button,
-.mat-mdc-button {
-  --mdc-filled-button-container-shape: 6px;
-  --mdc-text-button-container-shape: 6px;
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-tonal-button {
+  --mat-button-filled-container-shape: 6px;
+  --mat-button-text-container-shape: 6px;
+  --mat-button-tonal-container-shape: 6px;
+  --mat-button-outlined-container-shape: 6px;
+  --mat-button-protected-container-shape: 6px;
 }
 
 // Large button variant — 56px tall
 .btn-large.mat-mdc-button-base {
-  --mdc-filled-button-container-height: 56px;
-  --mdc-text-button-container-height: 56px;
-  --mdc-filled-button-container-shape: 8px;
-  --mdc-text-button-container-shape: 8px;
+  --mat-button-filled-container-shape: 8px;
+  --mat-button-text-container-shape: 8px;
   padding: 0 32px;
   font-size: 16px;
   border-radius: 8px;
