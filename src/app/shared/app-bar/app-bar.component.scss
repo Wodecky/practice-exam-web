@@ -1,5 +1,8 @@
 :host {
-  display: block;
+  /* No box of its own: .app-bar sticks relative to the page, and the
+     in-flow #sentinel stays anchored to the document so it can scroll
+     out of view and drive the scroll-shadow IntersectionObserver. */
+  display: contents;
 }
 
 .app-bar-sentinel {

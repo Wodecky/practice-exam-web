@@ -42,7 +42,10 @@ export class AppBarComponent {
     afterNextRender(() => {
       const observer = new IntersectionObserver(
         ([entry]) => this.scrolled.set(!entry.isIntersecting),
-        { rootMargin: '-8px 0px 0px 0px', threshold: 0 },
+        // Extend the root 8px above the viewport so the sentinel (pinned at
+        // the document top) counts as visible until the page scrolls past it,
+        // flipping `scrolled` on once the bar detaches from the very top.
+        { rootMargin: '8px 0px 0px 0px', threshold: 0 },
       );
       observer.observe(this.sentinel().nativeElement);
       this.destroyRef.onDestroy(() => observer.disconnect());
