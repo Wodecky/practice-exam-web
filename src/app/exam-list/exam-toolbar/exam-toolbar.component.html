@@ -1,0 +1,83 @@
+<div class="el-cat-chips" role="tablist" aria-label="Kategorie egzaminów">
+  @for (c of categories; track c) {
+    <button
+      type="button"
+      class="el-cat-chip"
+      role="tab"
+      [class.el-cat-chip-on]="category() === c"
+      [attr.aria-selected]="category() === c"
+      (click)="category.set(c)"
+    >
+      {{ c }}
+      @if (category() === c) {
+        <span class="el-cat-chip-count">{{ resultCount() }}</span>
+      }
+    </button>
+  }
+</div>
+
+<div class="el-toolbar-right">
+  <div class="el-result-count" aria-live="polite">
+    <strong>{{ resultCount() }}</strong> z {{ totalCount() }} egzaminów
+  </div>
+
+  <div class="el-sort">
+    <button
+      type="button"
+      class="el-sort-btn"
+      (click)="toggleSort()"
+      aria-haspopup="listbox"
+      [attr.aria-expanded]="sortOpen()"
+    >
+      <mat-icon>sort</mat-icon>
+      <span class="el-sort-label"
+        >Sortuj: <strong>{{ currentSortLabel() }}</strong></span
+      >
+      <mat-icon class="el-sort-caret">{{ sortOpen() ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </button>
+    @if (sortOpen()) {
+      <ul class="el-sort-menu" role="listbox">
+        @for (s of sorts; track s.id) {
+          <li>
+            <button
+              type="button"
+              class="el-sort-item"
+              [class.el-sort-item-on]="s.id === sort()"
+              (click)="selectSort(s.id)"
+              role="option"
+              [attr.aria-selected]="s.id === sort()"
+            >
+              @if (s.id === sort()) {
+                <mat-icon>check</mat-icon>
+              }
+              {{ s.label }}
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="el-view" role="group" aria-label="Widok wyników">
+    <button
+      type="button"
+      class="el-view-btn"
+      [class.el-view-btn-on]="view() === 'grid'"
+      [attr.aria-pressed]="view() === 'grid'"
+      (click)="view.set('grid')"
+      aria-label="Widok siatki"
+    >
+      <mat-icon>grid_view</mat-icon>
+    </button>
+    <button
+      type="button"
+      class="el-view-btn"
+      [class.el-view-btn-on]="view() === 'list'"
+      [attr.aria-pressed]="view() === 'list'"
+      (click)="view.set('list')"
+      aria-label="Widok listy"
+    >
+      <mat-icon>view_list</mat-icon>
+    </button>
+  </div>
+</div>

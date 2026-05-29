@@ -1,0 +1,303 @@
+:host {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 24px;
+  background: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 8px;
+}
+
+@media (max-width: 980px) {
+  :host {
+    position: static;
+  }
+}
+
+.el-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+
+  .m3-btn-text {
+    padding-right: 4px;
+    padding-left: 4px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.el-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  h3 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+  }
+}
+
+// Difficulty chips
+.el-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.m3-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 6px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font: 500 14px/1 inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 150ms ease,
+    color 150ms ease,
+    border-color 150ms ease;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background: color-mix(in oklab, var(--md-sys-color-on-surface-variant) 8%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+}
+.m3-chip-selected {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: transparent;
+}
+
+// Switch
+.el-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface);
+
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+.el-switch-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--md-sys-color-surface-container-highest);
+  border: 2px solid var(--md-sys-color-outline);
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+.el-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--md-sys-color-outline);
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.el-switch input:checked ~ .el-switch-track {
+  background: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
+}
+.el-switch input:checked ~ .el-switch-track .el-switch-thumb {
+  background: var(--md-sys-color-on-primary);
+  left: 23px;
+  width: 18px;
+  height: 18px;
+  top: 1px;
+}
+.el-switch input:focus-visible ~ .el-switch-track {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+// Slider
+.el-slider-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.el-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--md-sys-color-surface-container-highest);
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary);
+    border: 3px solid var(--md-sys-color-surface);
+    box-shadow: 0 0 0 1px var(--md-sys-color-primary);
+    cursor: pointer;
+    transition: transform 150ms ease;
+  }
+  &::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+  }
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary);
+    border: 3px solid var(--md-sys-color-surface);
+    cursor: pointer;
+  }
+  &:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 4px;
+  }
+}
+.el-slider-vals {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+  font-variant-numeric: tabular-nums;
+
+  span:first-child {
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
+  }
+}
+
+// Rating pills
+.el-rating-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.el-rating-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 150ms ease;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: var(--md-sys-color-tertiary);
+  }
+
+  &:hover {
+    background: color-mix(in oklab, var(--md-sys-color-on-surface-variant) 6%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+}
+.el-rating-pill-on {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: transparent;
+}
+
+// Callout card
+.el-sidebar-card {
+  margin-top: 8px;
+  padding: 20px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h4 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--md-sys-color-on-primary-container);
+  }
+
+  p {
+    margin: 0;
+    font-size: 13px;
+    color: color-mix(in oklab, var(--md-sys-color-on-primary-container) 80%, transparent);
+    line-height: 1.5;
+  }
+
+  .m3-btn-tonal {
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-primary);
+    height: 36px;
+    font-size: 13px;
+  }
+}
+.el-sidebar-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,7 +1,7 @@
 <div #sentinel class="app-bar-sentinel" aria-hidden="true"></div>
 <header class="app-bar" [class.app-bar-scrolled]="scrolled()">
   <div class="app-bar-inner">
-    <a class="brand" href="#top" aria-label="Pracsis – strona główna">
+    <a class="brand" routerLink="/" fragment="top" aria-label="Pracsis – strona główna">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" width="28" height="28">
           <rect x="2" y="2" width="28" height="28" rx="9" fill="var(--md-sys-color-primary)" />
@@ -20,10 +20,10 @@
     </a>
 
     <nav class="app-bar-nav" aria-label="Główna nawigacja">
-      <a href="#exams">Egzaminy</a>
-      <a href="#how">Jak to działa</a>
-      <a href="#try">Wypróbuj pytanie</a>
-      <a href="#changelog">Dla developerów</a>
+      <a routerLink="/exams" routerLinkActive="active">Egzaminy</a>
+      <a routerLink="/" fragment="how">Jak to działa</a>
+      <a routerLink="/" fragment="try">Wypróbuj pytanie</a>
+      <a routerLink="/" fragment="changelog">Dla developerów</a>
     </nav>
 
     <div class="app-bar-actions">
@@ -36,10 +36,10 @@
         <mat-icon>{{ isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
       </button>
       <button mat-button class="sign-in-btn">Zaloguj się</button>
-      <button mat-flat-button class="browse-btn">
+      <a mat-flat-button class="browse-btn" routerLink="/exams">
         <mat-icon>explore</mat-icon>
         Przeglądaj egzaminy
-      </button>
+      </a>
       <button
         mat-icon-button
         class="menu-btn"
@@ -61,15 +61,15 @@
     aria-label="Nawigacja mobilna"
     (click)="closeMenu()"
   >
-    <a #firstMobileLink href="#exams">Egzaminy</a>
-    <a href="#how">Jak to działa</a>
-    <a href="#try">Wypróbuj pytanie</a>
-    <a href="#changelog">Dla developerów</a>
+    <a #firstMobileLink routerLink="/exams" routerLinkActive="active">Egzaminy</a>
+    <a routerLink="/" fragment="how">Jak to działa</a>
+    <a routerLink="/" fragment="try">Wypróbuj pytanie</a>
+    <a routerLink="/" fragment="changelog">Dla developerów</a>
     <div class="app-bar-mobile-divider" aria-hidden="true"></div>
     <button mat-button class="mobile-action">Zaloguj się</button>
-    <button mat-flat-button class="mobile-action">
+    <a mat-flat-button class="mobile-action" routerLink="/exams">
       <mat-icon>explore</mat-icon>
       Przeglądaj egzaminy
-    </button>
+    </a>
   </nav>
 </header>

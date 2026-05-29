@@ -1,0 +1,50 @@
+<app-bar />
+
+<main>
+  <app-exam-header [(query)]="query" />
+
+  <section class="section section-surface el-results">
+    <div class="section-inner el-layout">
+      <app-exam-filters [(filters)]="filters" />
+
+      <div class="el-content">
+        <app-exam-toolbar
+          [(category)]="category"
+          [(sort)]="sort"
+          [(view)]="view"
+          [resultCount]="filtered().length"
+          [totalCount]="totalCount"
+        />
+
+        @if (filtered().length === 0) {
+          <div class="el-empty">
+            <div class="el-empty-icon">
+              <mat-icon>search_off</mat-icon>
+            </div>
+            <h3>Nic nie znaleźliśmy</h3>
+            <p>
+              Nie ma egzaminów pasujących do tych filtrów. Spróbuj rozszerzyć kryteria albo wyczyść
+              filtry.
+            </p>
+            <button type="button" class="m3-btn m3-btn-tonal" (click)="resetAll()">
+              <mat-icon>refresh</mat-icon>
+              Wyczyść wszystko
+            </button>
+          </div>
+        } @else {
+          <div
+            class="el-grid"
+            [class.el-grid-grid]="view() === 'grid'"
+            [class.el-grid-list]="view() === 'list'"
+          >
+            @for (e of filtered(); track e.id; let i = $index) {
+              <div class="el-grid-item" [style.animation-delay]="animationDelay(i)">
+                <app-exam-card [exam]="e" [list]="view() === 'list'" />
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</main>
