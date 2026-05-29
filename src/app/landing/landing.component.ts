@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { AppBarComponent } from './app-bar/app-bar.component';
+import { AppBarComponent } from '../shared/app-bar/app-bar.component';
 import { HeroComponent } from './hero/hero.component';
 import { HowItWorksComponent } from './how-it-works/how-it-works.component';
 import { ExamsComponent } from './exams/exams.component';

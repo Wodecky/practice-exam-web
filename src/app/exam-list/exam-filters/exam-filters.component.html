@@ -1,0 +1,105 @@
+@let f = filters();
+
+<div class="el-sidebar-head">
+  <h2>Filtry</h2>
+  <button class="m3-btn m3-btn-text" (click)="reset()">
+    <mat-icon>refresh</mat-icon>
+    Wyczyść
+  </button>
+</div>
+
+<div class="el-filter-group">
+  <h3>Poziom trudności</h3>
+  <div class="el-chips">
+    @for (d of difficulties; track d) {
+      <button
+        type="button"
+        class="m3-chip"
+        [class.m3-chip-selected]="f.diffs.includes(d)"
+        [attr.aria-pressed]="f.diffs.includes(d)"
+        (click)="toggleDiff(d)"
+      >
+        @if (f.diffs.includes(d)) {
+          <mat-icon>check</mat-icon>
+        }
+        {{ d }}
+      </button>
+    }
+  </div>
+</div>
+
+<div class="el-filter-group">
+  <h3>Tylko popularne</h3>
+  <label class="el-switch">
+    <input
+      type="checkbox"
+      [checked]="f.popularOnly"
+      (change)="setPopularOnly($any($event.target).checked)"
+    />
+    <span class="el-switch-track"><span class="el-switch-thumb"></span></span>
+    <span>Pokaż tylko popularne</span>
+  </label>
+</div>
+
+<div class="el-filter-group">
+  <h3>Tylko nowe</h3>
+  <label class="el-switch">
+    <input
+      type="checkbox"
+      [checked]="f.newOnly"
+      (change)="setNewOnly($any($event.target).checked)"
+    />
+    <span class="el-switch-track"><span class="el-switch-thumb"></span></span>
+    <span>Nowości w bazie</span>
+  </label>
+</div>
+
+<div class="el-filter-group">
+  <h3>Minimalna liczba pytań</h3>
+  <div class="el-slider-wrap">
+    <input
+      type="range"
+      min="0"
+      max="5000"
+      step="100"
+      class="el-slider"
+      [value]="f.minQ"
+      (input)="setMinQ(+$any($event.target).value)"
+      aria-label="Minimalna liczba pytań"
+    />
+    <div class="el-slider-vals">
+      <span>{{ minQLabel() }}</span>
+      <span class="el-slider-max">5 000+</span>
+    </div>
+  </div>
+</div>
+
+<div class="el-filter-group">
+  <h3>Minimalna ocena</h3>
+  <div class="el-rating-row">
+    @for (r of ratingThresholds; track r) {
+      <button
+        type="button"
+        class="el-rating-pill"
+        [class.el-rating-pill-on]="f.minRating === r"
+        [attr.aria-pressed]="f.minRating === r"
+        (click)="toggleRating(r)"
+      >
+        <mat-icon>star</mat-icon>
+        {{ ratingLabel(r) }}
+      </button>
+    }
+  </div>
+</div>
+
+<div class="el-sidebar-card">
+  <div class="el-sidebar-card-icon">
+    <mat-icon>school</mat-icon>
+  </div>
+  <h4>Nie ma Twojego egzaminu?</h4>
+  <p>Wklej zakres lub link do sylabusa — w kilka sekund zbudujemy ścieżkę dla Ciebie.</p>
+  <button type="button" class="m3-btn m3-btn-tonal">
+    Zbuduj własną
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,55 @@
+<div class="el-header-bg" aria-hidden="true">
+  <div class="hero-bg-blob hero-bg-blob-a"></div>
+  <div class="hero-bg-blob hero-bg-blob-b"></div>
+</div>
+
+<div class="section-inner el-header-inner">
+  <nav class="breadcrumbs" aria-label="okruszki">
+    <a routerLink="/">Pracsis</a>
+    <mat-icon>chevron_right</mat-icon>
+    <span>Egzaminy</span>
+  </nav>
+
+  <h1 class="el-title">Wszystkie egzaminy</h1>
+  <p class="el-sub">
+    Przeglądaj ponad 240 baz pytań — od matury i certyfikatów IT po egzaminy zawodowe i licencje
+    państwowe.
+  </p>
+
+  <div class="el-search">
+    <mat-icon>search</mat-icon>
+    <input
+      #searchInput
+      type="text"
+      placeholder="Szukaj egzaminu, np. „matura”, „AWS”, „prawo jazdy”…"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+      aria-label="Szukaj egzaminów"
+    />
+    @if (query()) {
+      <button class="el-search-clear" (click)="clear()" aria-label="Wyczyść wyszukiwanie">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+    <kbd class="el-search-kbd">⌘ K</kbd>
+  </div>
+
+  <div class="el-stats">
+    <div class="el-stat">
+      <strong>{{ examCount }}+</strong>
+      <span>egzaminów</span>
+    </div>
+    <div class="el-stat">
+      <strong>{{ questionsLabel }}</strong>
+      <span>pytań w bazie</span>
+    </div>
+    <div class="el-stat">
+      <strong>{{ categoryCount }}</strong>
+      <span>kategorie</span>
+    </div>
+    <div class="el-stat">
+      <strong>{{ avgRating }}</strong>
+      <span>średnia ocena</span>
+    </div>
+  </div>
+</div>

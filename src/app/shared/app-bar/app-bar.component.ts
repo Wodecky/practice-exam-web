@@ -12,12 +12,13 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { ThemeService } from '../../core/theme.service';
 
 @Component({
   selector: 'app-bar',
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, RouterLink, RouterLinkActive],
   templateUrl: './app-bar.component.html',
   styleUrl: './app-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

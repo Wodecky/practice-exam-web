@@ -1,0 +1,46 @@
+@let e = exam();
+
+<div class="el-card-top">
+  <div class="exam-icon exam-icon-{{ e.color }}">
+    <mat-icon>{{ e.icon }}</mat-icon>
+  </div>
+  <div class="el-card-badges">
+    @if (e.popular) {
+      <span class="exam-pop"><mat-icon>star</mat-icon>Popularne</span>
+    }
+    @if (e.isNew) {
+      <span class="el-badge-new"><mat-icon>auto_awesome</mat-icon>Nowość</span>
+    }
+  </div>
+</div>
+
+<div class="el-card-cat">{{ e.category }}</div>
+<h3>{{ e.name }}</h3>
+<p>{{ e.desc }}</p>
+
+<div class="el-card-meta">
+  <div class="el-card-meta-item">
+    <mat-icon>quiz</mat-icon>
+    <span>{{ questions() }} pytań</span>
+  </div>
+  <div class="el-card-meta-item">
+    <mat-icon>schedule</mat-icon>
+    <span>{{ e.mins }} min</span>
+  </div>
+  <div class="el-card-meta-item el-card-diff el-card-diff-{{ diffClass() }}">
+    <mat-icon>trending_up</mat-icon>
+    <span>{{ e.diff }}</span>
+  </div>
+</div>
+
+<div class="el-card-foot">
+  <div class="el-card-rating">
+    <mat-icon>star</mat-icon>
+    <strong>{{ rating() }}</strong>
+    <span class="el-card-students">· {{ students() }} tys. uczniów</span>
+  </div>
+  <button type="button" class="m3-btn m3-btn-filled">
+    Zacznij
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</div>
