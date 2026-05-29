@@ -1,8 +1,8 @@
 :host {
-  display: block;
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  /* No box of its own: .app-bar sticks relative to the page, and the
+     in-flow #sentinel stays anchored to the document so it can scroll
+     out of view and drive the scroll-shadow IntersectionObserver. */
+  display: contents;
 }
 
 .app-bar-sentinel {
@@ -15,7 +15,9 @@
 }
 
 .app-bar {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   background: color-mix(in oklab, var(--md-sys-color-background) 80%, transparent);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
