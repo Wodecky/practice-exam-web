@@ -212,6 +212,13 @@
     border-color: var(--md-sys-color-primary);
   }
 
+  // The native radio is visually hidden, so surface its focus on the card.
+  &:focus-within {
+    border-color: var(--md-sys-color-primary);
+    outline: 2px solid var(--md-sys-color-primary);
+    outline-offset: 2px;
+  }
+
   strong {
     font-size: 16px;
     color: var(--md-sys-color-on-surface);

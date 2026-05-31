@@ -220,7 +220,12 @@
     (click)="navOpen.set(false)"
     (keydown.escape)="navOpen.set(false)"
   >
-    <div class="ex-sheet" (click)="$event.stopPropagation()">
+    <div
+      class="ex-sheet"
+      cdkTrapFocus
+      [cdkTrapFocusAutoCapture]="true"
+      (click)="$event.stopPropagation()"
+    >
       <div class="ex-sheet-handle" aria-hidden="true"></div>
       <app-exam-navigator
         [session]="session()"
@@ -239,8 +244,14 @@
 
 <!-- CONFIRM EXIT DIALOG -->
 @if (confirmExit()) {
-  <div class="ex-dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="dialog-exit-title">
-    <div class="ex-dialog">
+  <div
+    class="ex-dialog-scrim"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="dialog-exit-title"
+    (keydown.escape)="confirmExit.set(false)"
+  >
+    <div class="ex-dialog" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
       <div class="ex-dialog-icon">
         <mat-icon>warning</mat-icon>
       </div>
@@ -265,8 +276,9 @@
     role="dialog"
     aria-modal="true"
     aria-labelledby="dialog-finish-title"
+    (keydown.escape)="confirmFinish.set(false)"
   >
-    <div class="ex-dialog">
+    <div class="ex-dialog" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
       <div class="ex-dialog-icon">
         <mat-icon>done_all</mat-icon>
       </div>

@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { A11yModule } from '@angular/cdk/a11y';
 import { MatIconModule } from '@angular/material/icon';
 import { interval } from 'rxjs';
 
@@ -18,7 +19,7 @@ import type { Question } from '../exam.data';
 
 @Component({
   selector: 'app-exam-runner',
-  imports: [MatIconModule, ExamNavigatorComponent],
+  imports: [MatIconModule, ExamNavigatorComponent, A11yModule],
   templateUrl: './exam-runner.component.html',
   styleUrl: './exam-runner.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,6 +43,8 @@ export class ExamRunnerComponent {
   readonly navOpen = signal(false);
   readonly confirmExit = signal(false);
   readonly confirmFinish = signal(false);
+
+  private finished = false;
 
   readonly q = computed(() => this.session()[this.idx()]);
   readonly total = computed(() => this.session().length);
@@ -73,7 +76,7 @@ export class ExamRunnerComponent {
   }
 
   onKeydown(e: KeyboardEvent): void {
-    if (this.confirmExit() || this.confirmFinish()) return;
+    if (this.confirmExit() || this.confirmFinish() || this.navOpen()) return;
     if ((e.target as HTMLElement).tagName === 'INPUT') return;
 
     if (e.key === 'ArrowRight') {
@@ -131,6 +134,8 @@ export class ExamRunnerComponent {
   }
 
   finishExam(timeUp: boolean): void {
+    if (this.finished) return;
+    this.finished = true;
     const durationSec = EXAM_META.minutes * 60 - this.secondsLeft();
     this.finish.emit({
       answers: this.answers(),
