@@ -312,7 +312,11 @@
 
 .qc-option-correct {
   border-color: var(--md-sys-color-success) !important;
-  background: color-mix(in oklab, var(--md-sys-color-success) 10%, var(--md-sys-color-surface)) !important;
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-success) 10%,
+    var(--md-sys-color-surface)
+  ) !important;
 
   .qc-option-letter {
     background: var(--md-sys-color-success);
@@ -326,7 +330,11 @@
 
 .qc-option-wrong {
   border-color: var(--md-sys-color-error) !important;
-  background: color-mix(in oklab, var(--md-sys-color-error) 10%, var(--md-sys-color-surface)) !important;
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-error) 10%,
+    var(--md-sys-color-surface)
+  ) !important;
 
   .qc-option-letter {
     background: var(--md-sys-color-error);

@@ -100,7 +100,13 @@
             >
               <span class="ex-review-num">{{ i + 1 }}</span>
               <mat-icon class="ex-review-state" aria-hidden="true">
-                {{ answerState(q) === 'correct' ? 'check' : answerState(q) === 'wrong' ? 'close' : 'remove' }}
+                {{
+                  answerState(q) === 'correct'
+                    ? 'check'
+                    : answerState(q) === 'wrong'
+                      ? 'close'
+                      : 'remove'
+                }}
               </mat-icon>
             </button>
           }

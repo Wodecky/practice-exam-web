@@ -156,8 +156,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
 }
 
 .ex-nav-toggle {
@@ -401,7 +406,11 @@
 
 .qc-option-correct {
   border-color: var(--md-sys-color-success) !important;
-  background: color-mix(in oklab, var(--md-sys-color-success) 10%, var(--md-sys-color-surface)) !important;
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-success) 10%,
+    var(--md-sys-color-surface)
+  ) !important;
 
   .qc-option-letter {
     background: var(--md-sys-color-success);
@@ -415,7 +424,11 @@
 
 .qc-option-wrong {
   border-color: var(--md-sys-color-error) !important;
-  background: color-mix(in oklab, var(--md-sys-color-error) 10%, var(--md-sys-color-surface)) !important;
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-error) 10%,
+    var(--md-sys-color-surface)
+  ) !important;
 
   .qc-option-letter {
     background: var(--md-sys-color-error);
@@ -428,7 +441,9 @@
 }
 
 .ex-option-kbd {
-  font: 500 11px/1 'Roboto Mono', monospace;
+  font:
+    500 11px/1 'Roboto Mono',
+    monospace;
   padding: 4px 8px;
   border-radius: 4px;
   background: var(--md-sys-color-surface-container);
@@ -510,7 +525,9 @@
   color: var(--md-sys-color-on-surface-variant);
 
   kbd {
-    font: 500 10px/1 'Roboto Mono', monospace;
+    font:
+      500 10px/1 'Roboto Mono',
+      monospace;
     padding: 3px 6px;
     border-radius: 4px;
     background: var(--md-sys-color-surface-container);

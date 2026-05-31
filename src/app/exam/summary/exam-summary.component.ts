@@ -52,10 +52,33 @@ export class ExamSummaryComponent {
 
   readonly grade = computed<Grade>(() => {
     const p = this.pct();
-    if (p >= 90) return { label: 'Świetnie!', tone: 'great', icon: 'workspace_premium', text: 'Jesteś gotowy na egzamin.' };
-    if (p >= 70) return { label: 'Dobrze', tone: 'good', icon: 'thumb_up', text: 'Solidny wynik — popraw pomyłki i wracaj.' };
-    if (p >= 50) return { label: 'Zaliczone', tone: 'ok', icon: 'trending_up', text: 'Próg zdawalności osiągnięty. Czas na trening.' };
-    return { label: 'Spróbuj ponownie', tone: 'bad', icon: 'replay', text: 'Przerób pytania, na których się pomyliłeś.' };
+    if (p >= 90)
+      return {
+        label: 'Świetnie!',
+        tone: 'great',
+        icon: 'workspace_premium',
+        text: 'Jesteś gotowy na egzamin.',
+      };
+    if (p >= 70)
+      return {
+        label: 'Dobrze',
+        tone: 'good',
+        icon: 'thumb_up',
+        text: 'Solidny wynik — popraw pomyłki i wracaj.',
+      };
+    if (p >= 50)
+      return {
+        label: 'Zaliczone',
+        tone: 'ok',
+        icon: 'trending_up',
+        text: 'Próg zdawalności osiągnięty. Czas na trening.',
+      };
+    return {
+      label: 'Spróbuj ponownie',
+      tone: 'bad',
+      icon: 'replay',
+      text: 'Przerób pytania, na których się pomyliłeś.',
+    };
   });
 
   readonly formattedDuration = computed(() => formatTime(this.result().durationSec));

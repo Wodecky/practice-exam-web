@@ -21,7 +21,12 @@
         <span class="ex-topbar-counter">
           Pytanie <strong>{{ idx() + 1 }}</strong> z {{ session().length }}
         </span>
-        <div class="ex-progress-bar" role="progressbar" [attr.aria-valuenow]="idx() + 1" [attr.aria-valuemax]="session().length">
+        <div
+          class="ex-progress-bar"
+          role="progressbar"
+          [attr.aria-valuenow]="idx() + 1"
+          [attr.aria-valuemax]="session().length"
+        >
           <div class="ex-progress-fill" [style.width.%]="progress()"></div>
         </div>
       </div>
@@ -69,10 +74,14 @@
               <span class="qc-option-letter">{{ opt.id.toUpperCase() }}</span>
               <span class="qc-option-text">{{ opt.text }}</span>
               @if (opt.id === q().answer) {
-                <mat-icon class="qc-option-icon" aria-label="Poprawna odpowiedź">check_circle</mat-icon>
+                <mat-icon class="qc-option-icon" aria-label="Poprawna odpowiedź"
+                  >check_circle</mat-icon
+                >
               }
               @if (opt.id === answer() && opt.id !== q().answer) {
-                <mat-icon class="qc-option-icon" aria-label="Twoja błędna odpowiedź">cancel</mat-icon>
+                <mat-icon class="qc-option-icon" aria-label="Twoja błędna odpowiedź"
+                  >cancel</mat-icon
+                >
               }
             </div>
           }

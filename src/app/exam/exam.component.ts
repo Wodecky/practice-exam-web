@@ -1,7 +1,14 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 import { AppBarComponent } from '../shared/app-bar/app-bar.component';
-import { DEFAULT_SETTINGS, EXAM_META, ExamResult, ExamSettings, POOL, shuffleArray } from './exam.data';
+import {
+  DEFAULT_SETTINGS,
+  EXAM_META,
+  ExamResult,
+  ExamSettings,
+  POOL,
+  shuffleArray,
+} from './exam.data';
 import { ExamRunnerComponent } from './runner/exam-runner.component';
 import { ExamSetupComponent } from './setup/exam-setup.component';
 import { ExamSummaryComponent } from './summary/exam-summary.component';

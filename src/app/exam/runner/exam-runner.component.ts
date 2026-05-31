@@ -131,7 +131,7 @@ export class ExamRunnerComponent {
   }
 
   finishExam(timeUp: boolean): void {
-    const durationSec = (EXAM_META.minutes * 60) - this.secondsLeft();
+    const durationSec = EXAM_META.minutes * 60 - this.secondsLeft();
     this.finish.emit({
       answers: this.answers(),
       flagged: this.flagged(),

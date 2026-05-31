@@ -73,17 +73,29 @@
 }
 
 .ex-score-great {
-  background: color-mix(in oklab, var(--md-sys-color-success) 8%, var(--md-sys-color-surface-container-lowest));
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-success) 8%,
+    var(--md-sys-color-surface-container-lowest)
+  );
   border-color: color-mix(in oklab, var(--md-sys-color-success) 30%, transparent);
 }
 
 .ex-score-good {
-  background: color-mix(in oklab, var(--md-sys-color-primary) 6%, var(--md-sys-color-surface-container-lowest));
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-primary) 6%,
+    var(--md-sys-color-surface-container-lowest)
+  );
   border-color: color-mix(in oklab, var(--md-sys-color-primary) 30%, transparent);
 }
 
 .ex-score-ok {
-  background: color-mix(in oklab, var(--md-sys-color-tertiary) 6%, var(--md-sys-color-surface-container-lowest));
+  background: color-mix(
+    in oklab,
+    var(--md-sys-color-tertiary) 6%,
+    var(--md-sys-color-surface-container-lowest)
+  );
   border-color: color-mix(in oklab, var(--md-sys-color-tertiary) 30%, transparent);
 }
 
@@ -116,9 +128,15 @@
   transition: stroke-dasharray 800ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-.ex-score-great .ex-ring-fill { stroke: var(--md-sys-color-success); }
-.ex-score-bad .ex-ring-fill   { stroke: var(--md-sys-color-error); }
-.ex-score-ok .ex-ring-fill    { stroke: var(--md-sys-color-tertiary); }
+.ex-score-great .ex-ring-fill {
+  stroke: var(--md-sys-color-success);
+}
+.ex-score-bad .ex-ring-fill {
+  stroke: var(--md-sys-color-error);
+}
+.ex-score-ok .ex-ring-fill {
+  stroke: var(--md-sys-color-tertiary);
+}
 
 .ex-score-ring-inner {
   position: absolute;
@@ -171,9 +189,15 @@
   }
 }
 
-.ex-score-great .ex-score-grade mat-icon { color: var(--md-sys-color-success); }
-.ex-score-bad .ex-score-grade mat-icon   { color: var(--md-sys-color-error); }
-.ex-score-ok .ex-score-grade mat-icon    { color: var(--md-sys-color-tertiary); }
+.ex-score-great .ex-score-grade mat-icon {
+  color: var(--md-sys-color-success);
+}
+.ex-score-bad .ex-score-grade mat-icon {
+  color: var(--md-sys-color-error);
+}
+.ex-score-ok .ex-score-grade mat-icon {
+  color: var(--md-sys-color-tertiary);
+}
 
 .ex-score-side p {
   font-size: 14px;
@@ -270,10 +294,19 @@
   background: var(--md-sys-color-surface-container-highest);
 }
 
-.ex-dot-correct { background: var(--md-sys-color-success); }
-.ex-dot-wrong   { background: var(--md-sys-color-error); }
-.ex-dot-empty   { background: var(--md-sys-color-surface-container-highest); border: 1px solid var(--md-sys-color-outline-variant); }
-.ex-dot-flagged { background: #f4a300; }
+.ex-dot-correct {
+  background: var(--md-sys-color-success);
+}
+.ex-dot-wrong {
+  background: var(--md-sys-color-error);
+}
+.ex-dot-empty {
+  background: var(--md-sys-color-surface-container-highest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+}
+.ex-dot-flagged {
+  background: #f4a300;
+}
 
 .ex-review-grid {
   display: grid;
@@ -325,16 +358,26 @@
   border-color: color-mix(in oklab, var(--md-sys-color-success) 40%, transparent);
   background: color-mix(in oklab, var(--md-sys-color-success) 7%, var(--md-sys-color-surface));
 
-  .ex-review-state { color: var(--md-sys-color-success); }
-  .ex-review-num   { background: var(--md-sys-color-success); color: white; }
+  .ex-review-state {
+    color: var(--md-sys-color-success);
+  }
+  .ex-review-num {
+    background: var(--md-sys-color-success);
+    color: white;
+  }
 }
 
 .ex-review-cell-wrong {
   border-color: color-mix(in oklab, var(--md-sys-color-error) 40%, transparent);
   background: color-mix(in oklab, var(--md-sys-color-error) 7%, var(--md-sys-color-surface));
 
-  .ex-review-state { color: var(--md-sys-color-error); }
-  .ex-review-num   { background: var(--md-sys-color-error); color: var(--md-sys-color-on-error); }
+  .ex-review-state {
+    color: var(--md-sys-color-error);
+  }
+  .ex-review-num {
+    background: var(--md-sys-color-error);
+    color: var(--md-sys-color-on-error);
+  }
 }
 
 .ex-review-cell-blank {

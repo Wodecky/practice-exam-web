@@ -2,12 +2,7 @@
   <div class="ex-nav-head">
     <h3>Pytania</h3>
     @if (showClose()) {
-      <button
-        type="button"
-        class="icon-btn"
-        (click)="close.emit()"
-        aria-label="Zamknij nawigator"
-      >
+      <button type="button" class="icon-btn" (click)="close.emit()" aria-label="Zamknij nawigator">
         <mat-icon>close</mat-icon>
       </button>
     }
@@ -26,7 +21,9 @@
 
   <div class="ex-nav-legend" role="list" aria-label="Legenda">
     <span role="listitem"><i class="ex-dot ex-dot-current" aria-hidden="true"></i> Aktualne</span>
-    <span role="listitem"><i class="ex-dot ex-dot-answered" aria-hidden="true"></i> Odpowiedziane</span>
+    <span role="listitem"
+      ><i class="ex-dot ex-dot-answered" aria-hidden="true"></i> Odpowiedziane</span
+    >
     <span role="listitem"><i class="ex-dot ex-dot-flagged" aria-hidden="true"></i> Oflagowane</span>
     <span role="listitem"><i class="ex-dot ex-dot-empty" aria-hidden="true"></i> Puste</span>
   </div>
@@ -49,11 +46,7 @@
     }
   </div>
 
-  <button
-    type="button"
-    class="m3-btn m3-btn-filled ex-nav-finish"
-    (click)="finish.emit()"
-  >
+  <button type="button" class="m3-btn m3-btn-filled ex-nav-finish" (click)="finish.emit()">
     <mat-icon>done_all</mat-icon>
     Zakończ egzamin
   </button>

@@ -133,8 +133,7 @@ export const POOL: Question[] = [
       { id: 'd', text: '7/5' },
     ],
     answer: 'b',
-    explanation:
-      'sin² + cos² = 1, więc cos² = 16/25. W II ćwiartce cos < 0, więc cos α = −4/5.',
+    explanation: 'sin² + cos² = 1, więc cos² = 16/25. W II ćwiartce cos < 0, więc cos α = −4/5.',
   },
   {
     id: 8,
