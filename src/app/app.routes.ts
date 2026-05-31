@@ -10,5 +10,10 @@ export const routes: Routes = [
     title: 'Egzaminy — Pracsis',
     loadComponent: () => import('./exam-list/exam-list.component').then((m) => m.ExamListComponent),
   },
+  {
+    path: 'exam',
+    title: 'Egzamin · Matura — Matematyka — Pracsis',
+    loadComponent: () => import('./exam/exam.component').then((m) => m.ExamComponent),
+  },
   { path: '**', redirectTo: '' },
 ];

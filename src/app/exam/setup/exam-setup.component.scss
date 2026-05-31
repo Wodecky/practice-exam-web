@@ -1,0 +1,337 @@
+:host {
+  display: block;
+}
+
+.ex-setup-wrap {
+  position: relative;
+  padding: 56px 32px 96px;
+  overflow: hidden;
+  min-height: calc(100vh - 72px);
+}
+
+.ex-setup-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ex-setup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 980px;
+}
+
+// ── Header ──────────────────────────────────────────────────────
+.ex-setup-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.ex-setup-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 6px;
+
+  mat-icon {
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.ex-setup-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--md-sys-color-tertiary);
+  margin-bottom: 6px;
+}
+
+.ex-setup-head h1 {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.ex-setup-head p {
+  max-width: 600px;
+  font-size: 15px;
+}
+
+// ── Fixed facts strip ────────────────────────────────────────────
+.ex-fixed-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ex-fixed-fact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 180px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-lowest);
+
+  mat-icon {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--md-sys-color-primary);
+  }
+
+  small {
+    display: block;
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 2px;
+  }
+
+  strong {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+// ── Cards grid ──────────────────────────────────────────────────
+.ex-setup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .ex-setup-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ex-setup-card {
+  background: var(--md-sys-color-surface-container-lowest);
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 8px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ex-setup-card-wide {
+  grid-column: 1 / -1;
+}
+
+.ex-setup-card-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.ex-setup-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+}
+
+.ex-setup-card-hint {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.ex-help {
+  margin: 0;
+  font-size: 13px;
+  color: var(--md-sys-color-on-surface-variant);
+
+  strong {
+    color: var(--md-sys-color-on-surface);
+    font-weight: 600;
+  }
+}
+
+// ── Mode cards ──────────────────────────────────────────────────
+.ex-mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 580px) {
+  .ex-mode-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ex-mode-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 16px;
+  align-items: start;
+  padding: 16px;
+  border-radius: 6px;
+  border: 1.5px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface);
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease;
+
+  input[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover {
+    border-color: var(--md-sys-color-primary);
+  }
+
+  strong {
+    font-size: 16px;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--md-sys-color-on-surface-variant);
+    line-height: 1.45;
+  }
+}
+
+.ex-mode-card-on {
+  border-color: var(--md-sys-color-primary);
+  background: color-mix(in oklab, var(--md-sys-color-primary) 6%, var(--md-sys-color-surface));
+}
+
+.ex-mode-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    font-size: 26px;
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.ex-mode-icon-alt {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.ex-mode-check {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: var(--md-sys-color-primary);
+  font-variation-settings: 'FILL' 1;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.ex-mode-card-on .ex-mode-check {
+  opacity: 1;
+}
+
+// ── Launch bar ──────────────────────────────────────────────────
+.ex-setup-launch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 22px 26px;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  border-radius: 8px;
+  box-shadow: var(--m3-elev-1);
+}
+
+.ex-launch-summary {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.ex-launch-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  mat-icon {
+    font-size: 22px;
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  small {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--md-sys-color-on-primary-container) 75%, transparent);
+  }
+
+  strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--md-sys-color-on-primary-container);
+  }
+}
+
+@media (max-width: 720px) {
+  .ex-setup-wrap {
+    padding: 32px 20px 64px;
+    min-height: calc(100vh - 64px);
+  }
+
+  .ex-setup-head {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ex-setup-icon {
+    width: 56px;
+    height: 56px;
+  }
+}

@@ -1,0 +1,264 @@
+<div class="ex-runner">
+  <!-- TOP BAR -->
+  <header class="ex-topbar">
+    <div class="ex-topbar-inner">
+      <div class="ex-topbar-left">
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="confirmExit.set(true)"
+          aria-label="Wyjdź z egzaminu"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <div class="ex-topbar-meta">
+          <span class="ex-topbar-eyebrow">{{ settings().mode === 'exam' ? 'Egzamin' : 'Trening' }}</span>
+          <strong>Matura — Matematyka</strong>
+        </div>
+      </div>
+
+      <div class="ex-topbar-progress">
+        <span class="ex-topbar-counter">
+          Pytanie <strong>{{ idx() + 1 }}</strong> z {{ total() }}
+        </span>
+        <div class="ex-progress-bar" role="progressbar" [attr.aria-valuenow]="idx() + 1" [attr.aria-valuemax]="total()">
+          <div class="ex-progress-fill" [style.width.%]="progress()"></div>
+        </div>
+        <div class="ex-topbar-stats">
+          <span><mat-icon aria-label="Odpowiedziane">check_circle</mat-icon>{{ answeredCount() }}/{{ total() }}</span>
+          <span><mat-icon aria-label="Oflagowane">flag</mat-icon>{{ flaggedCount() }}</span>
+        </div>
+      </div>
+
+      <div class="ex-topbar-right">
+        <div
+          class="ex-timer"
+          [class.ex-timer-warn]="timerWarn()"
+          role="timer"
+          [attr.aria-label]="'Pozostały czas: ' + formattedTime()"
+        >
+          <mat-icon>schedule</mat-icon>
+          <strong>{{ formattedTime() }}</strong>
+        </div>
+        <button
+          type="button"
+          class="m3-btn m3-btn-tonal ex-nav-toggle"
+          (click)="navOpen.set(true)"
+          aria-label="Otwórz nawigator pytań"
+        >
+          <mat-icon>grid_view</mat-icon>
+          Pytania
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="ex-runner-body ex-runner-layout-grid">
+    <div class="ex-runner-main">
+      <!-- QUESTION CARD -->
+      <article class="ex-qcard">
+        <div class="ex-qcard-head">
+          <div class="ex-qcard-meta">
+            <span class="ex-qcard-num">Pytanie {{ idx() + 1 }}</span>
+          </div>
+          <button
+            type="button"
+            class="ex-flag-btn"
+            [class.ex-flag-btn-on]="isFlagged()"
+            [attr.aria-pressed]="isFlagged()"
+            (click)="toggleFlag()"
+            title="Oflaguj pytanie do późniejszego przejrzenia (klawisz F)"
+          >
+            <mat-icon [style.font-variation-settings]="flagIconFill()">flag</mat-icon>
+            {{ isFlagged() ? 'Oflagowane' : 'Oflaguj' }}
+          </button>
+        </div>
+
+        <h2 class="ex-qcard-prompt">{{ q().prompt }}</h2>
+
+        <div class="ex-options" role="group" [attr.aria-label]="'Opcje odpowiedzi dla pytania ' + (idx() + 1)">
+          @for (opt of q().options; track opt.id; let i = $index) {
+            @if (isSubmitted()) {
+              <div
+                class="qc-option ex-option ex-option-static"
+                [class.qc-option-correct]="opt.id === q().answer"
+                [class.qc-option-wrong]="opt.id === picked() && opt.id !== q().answer"
+              >
+                <span class="qc-option-letter">{{ opt.id.toUpperCase() }}</span>
+                <span class="qc-option-text">{{ opt.text }}</span>
+                @if (opt.id === q().answer) {
+                  <mat-icon class="qc-option-icon" aria-label="Poprawna odpowiedź">check_circle</mat-icon>
+                }
+                @if (opt.id === picked() && opt.id !== q().answer) {
+                  <mat-icon class="qc-option-icon" aria-label="Błędna odpowiedź">cancel</mat-icon>
+                }
+              </div>
+            } @else {
+              <button
+                type="button"
+                class="qc-option ex-option"
+                [class.qc-option-picked]="picked() === opt.id"
+                (click)="pickAnswer(opt.id)"
+                [attr.aria-pressed]="picked() === opt.id"
+              >
+                <span class="qc-option-letter">{{ opt.id.toUpperCase() }}</span>
+                <span class="qc-option-text">{{ opt.text }}</span>
+                <kbd class="ex-option-kbd" aria-hidden="true">{{ i + 1 }}</kbd>
+              </button>
+            }
+          }
+        </div>
+
+        @if (isSubmitted()) {
+          <div
+            class="qc-feedback"
+            [class.qc-feedback-correct]="correctHere()"
+            [class.qc-feedback-wrong]="!correctHere()"
+            role="alert"
+          >
+            <div class="qc-feedback-head">
+              <mat-icon>{{ correctHere() ? 'check_circle' : 'lightbulb' }}</mat-icon>
+              <strong>
+                {{ correctHere() ? 'Brawo — to dobra odpowiedź.' : 'Prawidłowa odpowiedź to ' + q().answer.toUpperCase() + '.' }}
+              </strong>
+            </div>
+            <p>{{ q().explanation }}</p>
+          </div>
+        }
+      </article>
+
+      <!-- BOTTOM ACTIONS -->
+      <div class="ex-actions">
+        <button
+          type="button"
+          class="m3-btn m3-btn-outlined"
+          [disabled]="idx() === 0"
+          (click)="prev()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+          Poprzednie
+        </button>
+
+        <div class="ex-actions-center">
+          <span class="ex-actions-hint" aria-hidden="true">
+            Klawisze: <kbd>←</kbd><kbd>→</kbd> nawigacja · <kbd>1</kbd>–<kbd>4</kbd> odpowiedź · <kbd>F</kbd> flaga
+          </span>
+        </div>
+
+        @if (settings().mode === 'training' && !isSubmitted()) {
+          <button
+            type="button"
+            class="m3-btn m3-btn-filled"
+            [disabled]="!picked()"
+            (click)="submitOne()"
+          >
+            Sprawdź
+            <mat-icon>check</mat-icon>
+          </button>
+        } @else if (idx() < total() - 1) {
+          <button type="button" class="m3-btn m3-btn-filled" (click)="next()">
+            Następne
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        } @else {
+          <button
+            type="button"
+            class="m3-btn m3-btn-filled ex-finish-btn"
+            (click)="confirmFinish.set(true)"
+          >
+            Zakończ egzamin
+            <mat-icon>done_all</mat-icon>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- NAVIGATOR — side panel -->
+    <div class="ex-nav-side">
+      <app-exam-navigator
+        [session]="session()"
+        [idx]="idx()"
+        [answers]="answers()"
+        [flagged]="flagged()"
+        (goto)="goto($event)"
+        (finish)="confirmFinish.set(true)"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- NAVIGATOR — sheet overlay (mobile / sheet mode) -->
+@if (navOpen()) {
+  <div
+    class="ex-sheet-scrim"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Nawigator pytań"
+    (click)="navOpen.set(false)"
+    (keydown.escape)="navOpen.set(false)"
+  >
+    <div class="ex-sheet" (click)="$event.stopPropagation()">
+      <div class="ex-sheet-handle" aria-hidden="true"></div>
+      <app-exam-navigator
+        [session]="session()"
+        [idx]="idx()"
+        [answers]="answers()"
+        [flagged]="flagged()"
+        [compact]="true"
+        [showClose]="true"
+        (goto)="goto($event)"
+        (finish)="navOpen.set(false); confirmFinish.set(true)"
+        (close)="navOpen.set(false)"
+      />
+    </div>
+  </div>
+}
+
+<!-- CONFIRM EXIT DIALOG -->
+@if (confirmExit()) {
+  <div class="ex-dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="dialog-exit-title">
+    <div class="ex-dialog">
+      <div class="ex-dialog-icon">
+        <mat-icon>warning</mat-icon>
+      </div>
+      <h3 id="dialog-exit-title">Wyjść z egzaminu?</h3>
+      <p>Postępy zostaną utracone. Czy na pewno chcesz przerwać sesję?</p>
+      <div class="ex-dialog-actions">
+        <button type="button" class="m3-btn m3-btn-text" (click)="confirmExit.set(false)">
+          Wróć do egzaminu
+        </button>
+        <button type="button" class="m3-btn m3-btn-filled ex-btn-danger" (click)="exit.emit()">
+          Tak, wyjdź
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- CONFIRM FINISH DIALOG -->
+@if (confirmFinish()) {
+  <div class="ex-dialog-scrim" role="dialog" aria-modal="true" aria-labelledby="dialog-finish-title">
+    <div class="ex-dialog">
+      <div class="ex-dialog-icon">
+        <mat-icon>done_all</mat-icon>
+      </div>
+      <h3 id="dialog-finish-title">Zakończyć egzamin?</h3>
+      <p>
+        @if (answeredCount() < total()) {
+          Pominąłeś {{ total() - answeredCount() }} pytań. Czy na pewno chcesz zakończyć i zobaczyć wyniki?
+        } @else {
+          Świetnie — odpowiedziałeś na wszystkie pytania. Zobaczmy wyniki.
+        }
+      </p>
+      <div class="ex-dialog-actions">
+        <button type="button" class="m3-btn m3-btn-text" (click)="confirmFinish.set(false)">
+          Wróć do pytań
+        </button>
+        <button type="button" class="m3-btn m3-btn-filled" (click)="finishExam(false)">
+          Zakończ i pokaż wynik
+        </button>
+      </div>
+    </div>
+  </div>
+}

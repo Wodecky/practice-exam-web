@@ -1,0 +1,60 @@
+<aside class="ex-nav" [class.ex-nav-compact]="compact()">
+  <div class="ex-nav-head">
+    <h3>Pytania</h3>
+    @if (showClose()) {
+      <button
+        type="button"
+        class="icon-btn"
+        (click)="close.emit()"
+        aria-label="Zamknij nawigator"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </div>
+
+  <div class="ex-nav-stats">
+    <div class="ex-nav-stat">
+      <strong>{{ answeredCount() }}</strong>
+      <span>z {{ session().length }} odpowiedzi</span>
+    </div>
+    <div class="ex-nav-stat">
+      <strong>{{ flaggedCount() }}</strong>
+      <span>oflagowanych</span>
+    </div>
+  </div>
+
+  <div class="ex-nav-legend" role="list" aria-label="Legenda">
+    <span role="listitem"><i class="ex-dot ex-dot-current" aria-hidden="true"></i> Aktualne</span>
+    <span role="listitem"><i class="ex-dot ex-dot-answered" aria-hidden="true"></i> Odpowiedziane</span>
+    <span role="listitem"><i class="ex-dot ex-dot-flagged" aria-hidden="true"></i> Oflagowane</span>
+    <span role="listitem"><i class="ex-dot ex-dot-empty" aria-hidden="true"></i> Puste</span>
+  </div>
+
+  <div class="ex-nav-grid" role="list">
+    @for (q of session(); track q.id; let i = $index) {
+      <button
+        type="button"
+        class="ex-nav-cell"
+        [class.ex-nav-cell-current]="cellState(i) === 'current'"
+        [class.ex-nav-cell-answered]="cellState(i) === 'answered'"
+        [class.ex-nav-cell-flagged]="isCellFlagged(i)"
+        role="listitem"
+        [attr.aria-label]="'Przejdź do pytania ' + (i + 1)"
+        [attr.aria-current]="cellState(i) === 'current' ? 'true' : null"
+        (click)="goto.emit(i)"
+      >
+        {{ i + 1 }}
+      </button>
+    }
+  </div>
+
+  <button
+    type="button"
+    class="m3-btn m3-btn-filled ex-nav-finish"
+    (click)="finish.emit()"
+  >
+    <mat-icon>done_all</mat-icon>
+    Zakończ egzamin
+  </button>
+</aside>

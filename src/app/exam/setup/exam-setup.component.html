@@ -1,0 +1,156 @@
+<section class="ex-setup-wrap">
+  <div class="ex-setup-bg" aria-hidden="true">
+    <div class="hero-bg-blob hero-bg-blob-a"></div>
+    <div class="hero-bg-blob hero-bg-blob-b"></div>
+  </div>
+
+  <div class="section-inner ex-setup">
+    <nav class="breadcrumbs" aria-label="Nawigacja okruszkowa">
+      <a routerLink="/">Pracsis</a>
+      <mat-icon>chevron_right</mat-icon>
+      <a routerLink="/exams">Egzaminy</a>
+      <mat-icon>chevron_right</mat-icon>
+      <span>{{ examMeta.name }}</span>
+    </nav>
+
+    <header class="ex-setup-head">
+      <div class="exam-icon exam-icon-primary ex-setup-icon">
+        <mat-icon>{{ examMeta.icon }}</mat-icon>
+      </div>
+      <div>
+        <div class="ex-setup-eyebrow">Konfiguracja sesji · {{ examMeta.category }}</div>
+        <h1>{{ examMeta.name }}</h1>
+        <p>Ten egzamin ma ustaloną liczbę pytań i limit czasu. Wybierz tryb i zaczynaj.</p>
+      </div>
+    </header>
+
+    <div class="ex-fixed-facts">
+      <div class="ex-fixed-fact">
+        <mat-icon>quiz</mat-icon>
+        <div>
+          <small>Liczba pytań</small>
+          <strong>{{ examMeta.questionCount }}</strong>
+        </div>
+      </div>
+      <div class="ex-fixed-fact">
+        <mat-icon>schedule</mat-icon>
+        <div>
+          <small>Limit czasu</small>
+          <strong>{{ examMeta.minutes }} min</strong>
+        </div>
+      </div>
+      <div class="ex-fixed-fact">
+        <mat-icon>category</mat-icon>
+        <div>
+          <small>Kategoria</small>
+          <strong>{{ examMeta.category }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex-setup-grid">
+      <!-- MODE -->
+      <div class="ex-setup-card ex-setup-card-wide">
+        <div class="ex-setup-card-head">
+          <h3>Tryb sesji</h3>
+          <span class="ex-setup-card-hint">Wybierz, kiedy chcesz zobaczyć wyniki</span>
+        </div>
+        <div class="ex-mode-grid">
+          <label
+            class="ex-mode-card"
+            [class.ex-mode-card-on]="mode() === 'exam'"
+            (click)="setMode('exam')"
+          >
+            <input
+              type="radio"
+              name="mode"
+              value="exam"
+              [checked]="mode() === 'exam'"
+              (change)="setMode('exam')"
+              aria-label="Tryb Egzamin"
+            />
+            <div class="ex-mode-icon">
+              <mat-icon>timer</mat-icon>
+            </div>
+            <div>
+              <strong>Egzamin</strong>
+              <p>Pełna symulacja. Wyniki i wyjaśnienia widzisz dopiero na końcu.</p>
+            </div>
+            <mat-icon class="ex-mode-check" aria-hidden="true">check_circle</mat-icon>
+          </label>
+
+          <label
+            class="ex-mode-card"
+            [class.ex-mode-card-on]="mode() === 'training'"
+            (click)="setMode('training')"
+          >
+            <input
+              type="radio"
+              name="mode"
+              value="training"
+              [checked]="mode() === 'training'"
+              (change)="setMode('training')"
+              aria-label="Tryb Trening"
+            />
+            <div class="ex-mode-icon ex-mode-icon-alt">
+              <mat-icon>school</mat-icon>
+            </div>
+            <div>
+              <strong>Trening</strong>
+              <p>Po każdym pytaniu od razu zobaczysz odpowiedź i wyjaśnienie.</p>
+            </div>
+            <mat-icon class="ex-mode-check" aria-hidden="true">check_circle</mat-icon>
+          </label>
+        </div>
+      </div>
+
+      <!-- SHUFFLE -->
+      <div class="ex-setup-card ex-setup-card-wide ex-setup-card-row">
+        <div>
+          <h3>Losowa kolejność pytań</h3>
+          <p class="ex-help">
+            Wyłącz, jeśli chcesz przerabiać arkusz w stałej kolejności.
+          </p>
+        </div>
+        <mat-slide-toggle
+          [checked]="shuffle()"
+          (change)="setShuffle($event.checked)"
+          aria-label="Losowa kolejność pytań"
+          color="primary"
+        />
+      </div>
+    </div>
+
+    <!-- LAUNCH BAR -->
+    <div class="ex-setup-launch">
+      <div class="ex-launch-summary">
+        <div class="ex-launch-item">
+          <mat-icon>quiz</mat-icon>
+          <div>
+            <small>Pytania</small>
+            <strong>{{ examMeta.questionCount }}</strong>
+          </div>
+        </div>
+        <div class="ex-launch-item">
+          <mat-icon>{{ mode() === 'exam' ? 'timer' : 'school' }}</mat-icon>
+          <div>
+            <small>Tryb</small>
+            <strong>{{ mode() === 'exam' ? 'Egzamin' : 'Trening' }}</strong>
+          </div>
+        </div>
+        <div class="ex-launch-item">
+          <mat-icon>schedule</mat-icon>
+          <div>
+            <small>Czas</small>
+            <strong>{{ examMeta.minutes }} min</strong>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="m3-btn m3-btn-filled m3-btn-large" (click)="onStart()">
+        <mat-icon>play_arrow</mat-icon>
+        Rozpocznij egzamin
+      </button>
+    </div>
+  </div>
+</section>

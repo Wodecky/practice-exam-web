@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 import { Difficulty, Exam } from '../exam-list.data';
 
@@ -11,7 +12,7 @@ const DIFF_CLASS: Record<Difficulty, string> = {
 
 @Component({
   selector: 'app-exam-card',
-  imports: [MatIconModule],
+  imports: [MatIconModule, RouterLink],
   templateUrl: './exam-card.component.html',
   styleUrl: './exam-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
