@@ -1,0 +1,129 @@
+<div class="ex-runner">
+  <!-- TOP BAR -->
+  <header class="ex-topbar">
+    <div class="ex-topbar-inner">
+      <div class="ex-topbar-left">
+        <button
+          type="button"
+          class="icon-btn"
+          (click)="back.emit()"
+          aria-label="Wróć do podsumowania"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="ex-topbar-meta">
+          <span class="ex-topbar-eyebrow">Tryb przeglądania</span>
+          <strong>Matura — Matematyka</strong>
+        </div>
+      </div>
+
+      <div class="ex-topbar-progress">
+        <span class="ex-topbar-counter">
+          Pytanie <strong>{{ idx() + 1 }}</strong> z {{ session().length }}
+        </span>
+        <div
+          class="ex-progress-bar"
+          role="progressbar"
+          [attr.aria-valuenow]="idx() + 1"
+          [attr.aria-valuemax]="session().length"
+        >
+          <div class="ex-progress-fill" [style.width.%]="progress()"></div>
+        </div>
+      </div>
+
+      <div class="ex-topbar-right">
+        <span
+          class="ex-review-status"
+          [class]="'ex-review-status-' + answerState()"
+          aria-live="polite"
+        >
+          <mat-icon [style.font-variation-settings]="iconFill1">
+            {{ answerState() === 'blank' ? 'remove' : isCorrect() ? 'check_circle' : 'cancel' }}
+          </mat-icon>
+          {{ answerState() === 'blank' ? 'Pominięte' : isCorrect() ? 'Poprawne' : 'Błędne' }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="ex-runner-body ex-runner-layout-solo">
+    <div class="ex-runner-main">
+      <article class="ex-qcard">
+        <div class="ex-qcard-head">
+          <div class="ex-qcard-meta">
+            <span class="ex-qcard-num">Pytanie {{ idx() + 1 }}</span>
+            @if (isFlagged()) {
+              <span class="ex-qcard-flag">
+                <mat-icon>flag</mat-icon>
+                Oflagowane
+              </span>
+            }
+          </div>
+        </div>
+
+        <h2 class="ex-qcard-prompt">{{ q().prompt }}</h2>
+
+        <div class="ex-options" role="group" aria-label="Opcje odpowiedzi">
+          @for (opt of q().options; track opt.id) {
+            <div
+              class="qc-option ex-option-static"
+              [class.qc-option-correct]="opt.id === q().answer"
+              [class.qc-option-wrong]="opt.id === answer() && opt.id !== q().answer"
+            >
+              <span class="qc-option-letter">{{ opt.id.toUpperCase() }}</span>
+              <span class="qc-option-text">{{ opt.text }}</span>
+              @if (opt.id === q().answer) {
+                <mat-icon class="qc-option-icon" aria-label="Poprawna odpowiedź"
+                  >check_circle</mat-icon
+                >
+              }
+              @if (opt.id === answer() && opt.id !== q().answer) {
+                <mat-icon class="qc-option-icon" aria-label="Twoja błędna odpowiedź"
+                  >cancel</mat-icon
+                >
+              }
+            </div>
+          }
+        </div>
+
+        <div class="qc-feedback qc-feedback-correct" role="note">
+          <div class="qc-feedback-head">
+            <mat-icon>lightbulb</mat-icon>
+            <strong>Wyjaśnienie</strong>
+          </div>
+          <p>{{ q().explanation }}</p>
+        </div>
+      </article>
+
+      <div class="ex-actions">
+        <button
+          type="button"
+          class="m3-btn m3-btn-outlined"
+          [disabled]="idx() === 0"
+          (click)="prev()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+          Poprzednie
+        </button>
+
+        <div class="ex-actions-center">
+          <button type="button" class="m3-btn m3-btn-text" (click)="back.emit()">
+            <mat-icon>grid_view</mat-icon>
+            Wszystkie wyniki
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="m3-btn m3-btn-filled"
+          [disabled]="idx() === session().length - 1"
+          (click)="next()"
+        >
+          Następne
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

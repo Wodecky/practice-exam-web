@@ -1,0 +1,24 @@
+<app-bar />
+
+@if (phase() === 'setup') {
+  <app-exam-setup [initialSettings]="settings()" (start)="onStart($event)" />
+}
+
+@if (phase() === 'running') {
+  <app-exam-runner
+    [session]="session()"
+    [settings]="settings()"
+    (finish)="onFinish($event)"
+    (exit)="onChangeSettings()"
+  />
+}
+
+@if (phase() === 'done') {
+  <app-exam-summary
+    [session]="session()"
+    [result]="result()!"
+    [settings]="settings()"
+    (restart)="onRestart()"
+    (changeSettings)="onChangeSettings()"
+  />
+}
