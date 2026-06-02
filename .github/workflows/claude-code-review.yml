@@ -1,0 +1,53 @@
+name: Claude Code Review
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude-review:
+    # Only run on PR comments (not issue comments) whose body starts with "/review".
+    if: |
+      github.event.issue.pull_request &&
+      startsWith(github.event.comment.body, '/review')
+
+    # Serialise reviews per PR; a newer /review supersedes an in-flight one.
+    # Declared at the job (not workflow) level so it is evaluated *after* the
+    # `if` above: the tracking comment that `track_progress` posts fires another
+    # issue_comment event, but that run's job is skipped by the `if` and so never
+    # joins this group — otherwise it would cancel the very review that posted it.
+    concurrency:
+      group: claude-review-${{ github.event.issue.number }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # issue_comment events default to the default branch; check out the PR
+          # head so the review sees the actual proposed changes.
+          ref: refs/pull/${{ github.event.issue.number }}/head
+          fetch-depth: 0
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
+          plugins: 'code-review@claude-code-plugins'
+          prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.issue.number }}'
+          # Post a tracking comment up front and keep it updated, so a triggered
+          # review is always visible on the PR — even when it finds nothing to
+          # flag (otherwise a clean review posts no inline comments and looks
+          # like it never ran).
+          track_progress: true
+          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
+          # or https://code.claude.com/docs/en/cli-reference for available options
