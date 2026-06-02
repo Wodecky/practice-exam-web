@@ -76,6 +76,7 @@ export const DIFFICULTIES: readonly Difficulty[] = ['Łatwe', 'Średnie', 'Trudn
 
 export const RATING_THRESHOLDS: readonly number[] = [4.0, 4.5, 4.7, 4.8];
 
+/** Test fixture — not used at runtime. Production data comes from GET /api/Exams via ExamService. */
 export const ALL_EXAMS: readonly Exam[] = [
   // Akademickie
   {

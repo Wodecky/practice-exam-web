@@ -1,7 +1,7 @@
 <app-bar />
 
 <main>
-  <app-exam-header [(query)]="query" />
+  <app-exam-header [(query)]="query" [exams]="exams()" />
 
   <section class="section section-surface el-results">
     <div class="section-inner el-layout">
@@ -13,13 +13,30 @@
           [(sort)]="sort"
           [(view)]="view"
           [resultCount]="filtered().length"
-          [totalCount]="totalCount"
+          [totalCount]="totalCount()"
         />
 
-        @if (filtered().length === 0) {
+        @if (examsResource.isLoading()) {
+          <div class="el-loading" role="status">
+            <mat-spinner diameter="48" aria-hidden="true" />
+            <p>Ładowanie egzaminów…</p>
+          </div>
+        } @else if (examsResource.error()) {
+          <div class="el-error" role="alert">
+            <div class="el-error-icon">
+              <mat-icon aria-hidden="true">error_outline</mat-icon>
+            </div>
+            <h3>Nie udało się załadować egzaminów</h3>
+            <p>Wystąpił błąd podczas pobierania danych. Spróbuj ponownie.</p>
+            <button type="button" class="m3-btn m3-btn-tonal" (click)="examsResource.reload()">
+              <mat-icon aria-hidden="true">refresh</mat-icon>
+              Spróbuj ponownie
+            </button>
+          </div>
+        } @else if (filtered().length === 0) {
           <div class="el-empty">
             <div class="el-empty-icon">
-              <mat-icon>search_off</mat-icon>
+              <mat-icon aria-hidden="true">search_off</mat-icon>
             </div>
             <h3>Nic nie znaleźliśmy</h3>
             <p>
@@ -27,7 +44,7 @@
               filtry.
             </p>
             <button type="button" class="m3-btn m3-btn-tonal" (click)="resetAll()">
-              <mat-icon>refresh</mat-icon>
+              <mat-icon aria-hidden="true">refresh</mat-icon>
               Wyczyść wszystko
             </button>
           </div>
@@ -36,6 +53,8 @@
             class="el-grid"
             [class.el-grid-grid]="view() === 'grid'"
             [class.el-grid-list]="view() === 'list'"
+            aria-live="polite"
+            aria-label="Lista egzaminów"
           >
             @for (e of filtered(); track e.id; let i = $index) {
               <div class="el-grid-item" [style.animation-delay]="animationDelay(i)">
