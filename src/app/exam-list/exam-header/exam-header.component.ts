@@ -32,10 +32,7 @@ export class ExamHeaderComponent {
 
   readonly examCount = computed(() => this.exams().length);
 
-  readonly questionsLabel = computed(() => {
-    const total = this.exams().reduce((acc, e) => acc + e.q, 0);
-    return (total / 1000).toFixed(1).replace('.', ',') + ' tys.';
-  });
+  readonly questionsLabel = computed(() => this.exams().reduce((acc, e) => acc + e.q, 0));
 
   readonly avgRating = computed(() => {
     const exams = this.exams();

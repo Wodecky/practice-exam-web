@@ -16,16 +16,12 @@ export interface ExamResponse {
   isNew: boolean;
 }
 
-const DIFFICULTY_MAP: Readonly<Record<number, Difficulty>> = {
-  1: 'Łatwe',
-  2: 'Średnie',
-  3: 'Trudne',
-};
-
 const VALID_COLORS: readonly ExamColor[] = ['primary', 'tertiary', 'secondary'];
 
 function mapDifficulty(value: number): Difficulty {
-  return DIFFICULTY_MAP[value] ?? 'Średnie';
+  if (value <= 33) return 'Łatwe';
+  if (value <= 67) return 'Średnie';
+  return 'Trudne';
 }
 
 function mapColor(value: string): ExamColor {
