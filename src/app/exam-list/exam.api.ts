@@ -18,6 +18,7 @@ export interface ExamResponse {
 
 const VALID_COLORS: readonly ExamColor[] = ['primary', 'tertiary', 'secondary'];
 
+// Thresholds mirror the API spec: 1-33 = Łatwe, 34-67 = Średnie, 68-100 = Trudne
 function mapDifficulty(value: number): Difficulty {
   if (value <= 33) return 'Łatwe';
   if (value <= 67) return 'Średnie';

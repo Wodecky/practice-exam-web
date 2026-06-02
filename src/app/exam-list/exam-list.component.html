@@ -33,6 +33,14 @@
               Spróbuj ponownie
             </button>
           </div>
+        } @else if (exams().length === 0) {
+          <div class="el-empty">
+            <div class="el-empty-icon">
+              <mat-icon aria-hidden="true">inbox</mat-icon>
+            </div>
+            <h3>Brak egzaminów</h3>
+            <p>Nie ma jeszcze żadnych egzaminów do wyświetlenia.</p>
+          </div>
         } @else if (filtered().length === 0) {
           <div class="el-empty">
             <div class="el-empty-icon">

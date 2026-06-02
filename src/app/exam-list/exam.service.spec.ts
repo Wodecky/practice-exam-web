@@ -14,7 +14,7 @@ const MOCK_RESPONSE: ExamResponse = {
   categoryColor: 'primary',
   categoryIcon: 'code',
   questionCount: 100,
-  difficulty: 2,
+  difficulty: 50,
   durationMinutes: 60,
   studentCount: 1000,
   rating: 4.5,
@@ -77,19 +77,19 @@ describe('ExamService', () => {
     expect(result![0].diff).toBe('Łatwe');
   });
 
-  it('should map difficulty int 3 to Trudne', () => {
+  it('should map difficulty 80 to Trudne', () => {
     let result: Exam[] | undefined;
     service.getExams().subscribe((exams) => (result = exams));
 
-    httpMock.expectOne('/api/Exams').flush([{ ...MOCK_RESPONSE, difficulty: 3 }]);
+    httpMock.expectOne('/api/Exams').flush([{ ...MOCK_RESPONSE, difficulty: 80 }]);
     expect(result![0].diff).toBe('Trudne');
   });
 
-  it('should default unknown difficulty to Średnie', () => {
+  it('should map difficulty 50 to Średnie', () => {
     let result: Exam[] | undefined;
     service.getExams().subscribe((exams) => (result = exams));
 
-    httpMock.expectOne('/api/Exams').flush([{ ...MOCK_RESPONSE, difficulty: 99 }]);
+    httpMock.expectOne('/api/Exams').flush([{ ...MOCK_RESPONSE, difficulty: 50 }]);
     expect(result![0].diff).toBe('Średnie');
   });
 

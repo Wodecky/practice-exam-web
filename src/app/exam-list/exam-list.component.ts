@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { firstValueFrom } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -37,7 +38,7 @@ export class ExamListComponent {
   private readonly examService = inject(ExamService);
 
   readonly examsResource = rxResource({
-    stream: () => this.examService.getExams(),
+    loader: () => firstValueFrom(this.examService.getExams()),
   });
 
   readonly exams = computed(() => this.examsResource.value() ?? []);
