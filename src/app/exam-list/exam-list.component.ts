@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppBarComponent } from '../shared/app-bar/app-bar.component';
 import { ExamCardComponent } from './exam-card/exam-card.component';
 import { ExamFiltersComponent } from './exam-filters/exam-filters.component';
 import { ExamHeaderComponent } from './exam-header/exam-header.component';
 import { ExamToolbarComponent } from './exam-toolbar/exam-toolbar.component';
+import { ExamService } from './exam.service';
 import {
   ALL_CATEGORY,
-  ALL_EXAMS,
   DEFAULT_FILTERS,
   ExamFilters,
   SORT_COMPARATORS,
@@ -20,6 +22,7 @@ import {
   selector: 'app-exam-list',
   imports: [
     MatIconModule,
+    MatProgressSpinnerModule,
     AppBarComponent,
     ExamHeaderComponent,
     ExamFiltersComponent,
@@ -31,7 +34,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamListComponent {
-  readonly totalCount = ALL_EXAMS.length;
+  private readonly examService = inject(ExamService);
+
+  readonly examsResource = rxResource({
+    stream: () => this.examService.getExams(),
+  });
+
+  readonly exams = computed(() => this.examsResource.value() ?? []);
+  readonly totalCount = computed(() => this.exams().length);
 
   readonly query = signal('');
   readonly category = signal<string>(ALL_CATEGORY);
@@ -44,7 +54,7 @@ export class ExamListComponent {
     const category = this.category();
     const { diffs, popularOnly, newOnly, minQ, minRating } = this.filters();
 
-    const result = ALL_EXAMS.filter((e) => {
+    const result = this.exams().filter((e) => {
       if (
         query &&
         !e.name.toLowerCase().includes(query) &&
